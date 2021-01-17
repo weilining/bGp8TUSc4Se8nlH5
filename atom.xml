@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ln&#39;s Blog</title>
+  
+  <subtitle>有朋自远方来，不亦乐乎</subtitle>
+  <link href="https://weilining.cf/atom.xml" rel="self"/>
+  
+  <link href="https://weilining.cf/"/>
+  <updated>2021-01-17T04:43:43.000Z</updated>
+  <id>https://weilining.cf/</id>
+  
+  <author>
+    <name>Ln</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>谷歌网页性能测试</title>
+    <link href="https://weilining.cf/92.html"/>
+    <id>https://weilining.cf/92.html</id>
+    <published>2021-01-17T04:43:43.000Z</published>
+    <updated>2021-01-17T04:43:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="在线"><a href="#在线" class="headerlink" title="在线"></a>在线</h2><p><a href="https://developers.google.cn/speed/pagespeed/insights/">https://developers.google.cn/speed/pagespeed/insights/</a></p><a id="more"></a><p> <a href="https://www.googlespeed.cn/">https://www.googlespeed.cn/</a></p><h2 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h2><h3 id="Chrome浏览器"><a href="#Chrome浏览器" class="headerlink" title="Chrome浏览器"></a>Chrome浏览器</h3><h4 id="win"><a href="#win" class="headerlink" title="win"></a>win</h4><p><code>F12</code>打开<code>lighthouse</code>，点击<code>Generate report</code>。</p><h4 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h4><p><code>option + command + i</code> 打开<code>lighthouse</code>，点击<code>Generate report</code>。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developers.google.com/speed/pagespeed/insights/">https://developers.google.com/speed/pagespeed/insights/</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Visual Studio Code 终端分屏独立操作</title>
+    <link href="https://weilining.cf/91.html"/>
+    <id>https://weilining.cf/91.html</id>
+    <published>2021-01-15T09:14:38.000Z</published>
+    <updated>2021-01-15T09:14:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Shift + control + ` 新建终端</p><p><code>command + \</code> 分屏</p><a id="more"></a>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo 实现随机文章跳转</title>
+    <link href="https://weilining.cf/90.html"/>
+    <id>https://weilining.cf/90.html</id>
+    <published>2021-01-14T15:54:39.000Z</published>
+    <updated>2021-01-14T15:54:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>没有请创建<code>blog/scripts/random.js</code></p><a id="more"></a> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hexo.extend.generator.register(<span class="string">&#x27;random&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">locals</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> config = hexo.config.random || &#123;&#125;</span><br><span class="line">  <span class="keyword">const</span> posts = []</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> post <span class="keyword">of</span> locals.posts.data) &#123;</span><br><span class="line">    <span class="keyword">if</span> (post.random !== <span class="literal">false</span>) posts.push(post.path)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    path: config.path || <span class="string">&#x27;random/index.html&#x27;</span>,</span><br><span class="line">    data: <span class="string">`&lt;html&gt;&lt;head&gt;&lt;script&gt;var posts=<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(posts)&#125;</span>;window.open(&#x27;/&#x27;+posts[Math.floor(Math.random() * posts.length)],&quot;_self&quot;)&lt;/script&gt;&lt;/head&gt;&lt;/html&gt;`</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p><a href="https://weilining.cf/random/">https://weilining.cf/random/</a></p><h2 id="可选配置"><a href="#可选配置" class="headerlink" title="可选配置"></a>可选配置</h2><p><code>_config.yml</code>添加以下配置：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">random:</span><br><span class="line">  path: # 随机链接路径，默认&quot;random&#x2F;index.html&quot;</span><br></pre></td></tr></table></figure><p>如果不想随机跳转到某篇文章，只需在这篇文章<code>Front-matter</code>添加<code>random: false</code></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.hclonely.com/posts/57bd67ce/">https://blog.hclonely.com/posts/57bd67ce/</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅谈依赖，轻装上阵</title>
+    <link href="https://weilining.cf/89.html"/>
+    <id>https://weilining.cf/89.html</id>
+    <published>2021-01-14T08:23:55.000Z</published>
+    <updated>2021-01-14T08:23:55.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="什么是依赖"><a href="#什么是依赖" class="headerlink" title="什么是依赖"></a>什么是依赖</h2><p>依赖是一个泛说法，字面理解是有关系。</p><a id="more"></a><h2 id="具体表现"><a href="#具体表现" class="headerlink" title="具体表现"></a>具体表现</h2><p>在家里，我们的关系是父亲母亲；在生活中，各种各样的欲望，都跟你有关系，想要的越多，你的压力就越大。</p><h2 id="删繁就简"><a href="#删繁就简" class="headerlink" title="删繁就简"></a>删繁就简</h2><p> 不管在任何年龄阶段，都有两个极端事情，重要的和不重要的事情。我挑重要的事情作为我的依赖，我的压力，而那些不重要的事情，可以暂时放一放。这个博客，我写给自己看的，那些教程，基本上都是自己看得懂，如果读者没有留言，我一般不会去为了零基础的读者多写几句，只有闲暇之余，才会来打理下博客。现实会给我的依赖做加法，而生活中得适当给自己的依赖做减法。</p><h2 id="轻装上阵"><a href="#轻装上阵" class="headerlink" title="轻装上阵"></a>轻装上阵</h2><p>不重要的事情，放一边，等时间也不那么重要的时候，去做不那么重要的事情，“门当户对”嘛。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://baike.baidu.com/item/%E4%BE%9D%E8%B5%96/7458405">https://baike.baidu.com/item/%E4%BE%9D%E8%B5%96/7458405</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最优雅的安装 nodejs</title>
+    <link href="https://weilining.cf/88.html"/>
+    <id>https://weilining.cf/88.html</id>
+    <published>2021-01-14T08:01:43.000Z</published>
+    <updated>2021-01-14T08:01:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="win"><a href="#win" class="headerlink" title="win"></a>win</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a href="https://javapython.lanzous.com/iDVI3izpv5e">node-v14.15.1-x64.msi.zip</a></p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>一直下一步</p><h2 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h2><h3 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h3><p><a href="https://javapython.lanzous.com/idW88k8ag7g">node-v14.15.4.pkg.zip</a></p><h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>一直下一步</p><a id="more"></a><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a></p><p><a href="https://nodejs.org/en/">https://nodejs.org/en/</a></p><p><a href="https://nodejs.org/en/download/package-manager/#macos">https://nodejs.org/en/download/package-manager/#macos</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最优雅的安装 Git</title>
+    <link href="https://weilining.cf/87.html"/>
+    <id>https://weilining.cf/87.html</id>
+    <published>2021-01-14T07:41:08.000Z</published>
+    <updated>2021-01-14T07:41:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="win"><a href="#win" class="headerlink" title="win"></a>win</h2><a id="more"></a><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><h4 id="最新版"><a href="#最新版" class="headerlink" title="最新版"></a>最新版</h4><p><a href="https://javapython.lanzous.com/i1Mq7ke0dkh">Git-2.30.0-64-bit.exe</a></p><h4 id="历史版本"><a href="#历史版本" class="headerlink" title="历史版本"></a>历史版本</h4><p><a href="https://javapython.lanzous.com/iRr5ake0fcb">Git-2.30.0-32-bit.exe</a></p><p><a href="https://javapython.lanzous.com/iBOuggnw12j">Git-2.28.0-64-bit.exe</a></p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>一直下一步</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://git-scm.com/download/win">https://git-scm.com/download/win</a></p><p><a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">https://git-scm.com/book/en/v2/Getting-Started-Installing-Git</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo 最优雅的换电脑写博客</title>
+    <link href="https://weilining.cf/86.html"/>
+    <id>https://weilining.cf/86.html</id>
+    <published>2021-01-14T06:59:55.000Z</published>
+    <updated>2021-01-14T06:59:55.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="备份hexo源码"><a href="#备份hexo源码" class="headerlink" title="备份hexo源码"></a>备份hexo源码</h2><p>进入<code>blog</code>运行下面代码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf Thumbs.db node_modules/ db.json public/ .deploy package-lock.json</span><br></pre></td></tr></table></figure><p>备份<code>blog</code></p><a id="more"></a><h2 id="新电脑"><a href="#新电脑" class="headerlink" title="新电脑"></a>新电脑</h2><h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br><span class="line">node --version</span><br></pre></td></tr></table></figure><h3 id="安装hexo依赖"><a href="#安装hexo依赖" class="headerlink" title="安装hexo依赖"></a>安装hexo依赖</h3><p>进入之前拷贝的源码<code>blog</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i</span><br></pre></td></tr></table></figure><h3 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx hexo clean &amp;&amp; npx hexo server <span class="comment">#清理和启动主题</span></span><br></pre></td></tr></table></figure><p><a href="http://localhost:4000/">http://localhost:4000/</a></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://hexo.io/">https://hexo.io/</a></p><p><a href="https://docs.npmjs.com/">https://docs.npmjs.com/</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最有效的时间管理</title>
+    <link href="https://weilining.cf/85.html"/>
+    <id>https://weilining.cf/85.html</id>
+    <published>2021-01-14T04:40:50.000Z</published>
+    <updated>2021-01-14T04:40:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="时间管理"><a href="#时间管理" class="headerlink" title="时间管理"></a>时间管理</h2><p>宝贵时间，先在脑子里使用重要紧急工作法初判，再使用GTD有条不紊的记下。</p><h3 id="四象限：重要紧急工作法"><a href="#四象限：重要紧急工作法" class="headerlink" title="四象限：重要紧急工作法"></a>四象限：重要紧急工作法</h3><p><strong>横轴重要程度</strong>，<strong>纵轴紧急程度</strong></p><a id="more"></a><table><thead><tr><th>紧急但不重要</th><th>紧急且重要</th></tr></thead><tbody><tr><td>拿快递</td><td>学习</td></tr><tr><td>不紧急且不重要</td><td>不紧急但重要</td></tr><tr><td>看电视</td><td>吃饭</td></tr></tbody></table><h3 id="GTD：好记性不如烂笔头"><a href="#GTD：好记性不如烂笔头" class="headerlink" title="GTD：好记性不如烂笔头"></a>GTD：好记性不如烂笔头</h3><p><code>macOS</code>的<code>App Store</code> 下载<code>Todoist</code>，支持看板和清单，时间线任务一目了然。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://linkle.tech/archives/swbook1">https://linkle.tech/archives/swbook1</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>彻底解决 GitHub git clone 卡慢</title>
+    <link href="https://weilining.cf/84.html"/>
+    <id>https://weilining.cf/84.html</id>
+    <published>2021-01-10T08:18:46.000Z</published>
+    <updated>2021-01-10T08:18:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><table><thead><tr><th>方式</th><th>位置</th><th>只代理GitHub代码</th><th><code>git clone gh</code>效果</th></tr></thead><tbody><tr><td>ssh</td><td><code>~/.ssh/config</code>配置</td><td>Host github.com<br/>HostName github.com<br/>User git<br/>ProxyCommand nc -v -x 127.0.0.1:7890 %h %p</td><td>飞快</td></tr><tr><td>https</td><td>终端输入</td><td><code>git config --global http.https://github.com.proxy socks5://127.0.0.1:7890</code></td><td>飞快</td></tr></tbody></table><h2 id="使用理由"><a href="#使用理由" class="headerlink" title="使用理由"></a>使用理由</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 git@github.com:jerryc127/hexo-theme-butterfly.git</span><br><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/jerryc127/hexo-theme-butterfly.git</span><br></pre></td></tr></table></figure><p>浅拷贝<code>git clone --depth=1 ref</code>速度确实快，但是版本回退是问题，在 <code>GitHub</code> 上 <code>Pull requests</code>非常不方便，而<code>ssh</code>全拷贝会方便进行git的操作，可是全拷贝速度奇慢，只能通过代理下载，下文有介绍<code>https</code>。</p><a id="more"></a><h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">代理 <span class="comment"># telnet 127.0.0.1 7890</span></span><br><span class="line">macOS <span class="comment"># 测试环境是macOS 11.1</span></span><br><span class="line">git --version</span><br><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure><h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><h3 id="设置macOS代理"><a href="#设置macOS代理" class="headerlink" title="设置macOS代理"></a>设置macOS代理</h3><p>修改 <code>~/.ssh/config</code> 文件（不存在则新建<code>rm -rf ~/.ssh/config &amp;&amp; touch ~/.ssh/config</code>）：</p><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 必须是 github.com</span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   User git</span><br><span class="line">   # 走 HTTP 代理</span><br><span class="line">   # ProxyCommand socat - PROXY:127.0.0.1:%h:%p,proxyport=8080</span><br><span class="line">   # 走 socks5 代理（如 Shadowsocks）</span><br><span class="line">   ProxyCommand nc -v -x 127.0.0.1:7890 %h %p</span><br></pre></td></tr></table></figure><h3 id="从-GitHub-克隆代码"><a href="#从-GitHub-克隆代码" class="headerlink" title="从 GitHub 克隆代码"></a>从 GitHub 克隆代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:jerryc127/hexo-theme-butterfly.git</span><br></pre></td></tr></table></figure><h2 id="Https"><a href="#Https" class="headerlink" title="Https"></a>Https</h2><h3 id="删代理"><a href="#删代理" class="headerlink" title="删代理"></a>删代理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --unset http.proxy # 系统 &gt; 全局 &gt; 当前 </span><br><span class="line">git config --local --unset http.proxy # 当前</span><br><span class="line">git config --global --unset http.proxy # 全局</span><br><span class="line">git config --system --unset http.proxy # 系统</span><br></pre></td></tr></table></figure><h4 id="查全局所有代理"><a href="#查全局所有代理" class="headerlink" title="查全局所有代理"></a>查全局所有代理</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --list</span><br><span class="line"><span class="comment"># git config --system --list # 系统，一般用不到</span></span><br></pre></td></tr></table></figure><h4 id="proxy结果"><a href="#proxy结果" class="headerlink" title="proxy结果"></a>proxy结果</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https.https://github.com.proxy=https://127.0.0.1:7890</span><br><span class="line">http.https://github.com.proxy=socks5://127.0.0.1:7890</span><br></pre></td></tr></table></figure><h4 id="删除proxy"><a href="#删除proxy" class="headerlink" title="删除proxy"></a>删除proxy</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.https://github.com.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.https://github.com.proxy</span><br></pre></td></tr></table></figure><h3 id="全局代理"><a href="#全局代理" class="headerlink" title="全局代理"></a>全局代理</h3><p>我们使用<code>git config http.proxy socks5://127.0.0.1:7890</code>只能当前仓库，适用于<code>git push</code>或<code>git pull</code>等。由于<code>git clone</code>的是其他仓库，所以需要使用全局或系统设置，我选全局代理。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.https://github.com.proxy socks5://127.0.0.1:7890 <span class="comment"># 只代理GitHub的git</span></span><br><span class="line"><span class="comment"># git config --global http.proxy socks5://127.0.0.1:7890 # 代理任何git，包括国内gitee</span></span><br></pre></td></tr></table></figure><h3 id="查询代理设置"><a href="#查询代理设置" class="headerlink" title="查询代理设置"></a>查询代理设置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config http.proxy</span><br></pre></td></tr></table></figure><p>显示<code>socks5://127.0.0.1:7890</code>即可</p><h3 id="从-GitHub-克隆代码-1"><a href="#从-GitHub-克隆代码-1" class="headerlink" title="从 GitHub 克隆代码"></a>从 GitHub 克隆代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/jerryc127/hexo-theme-butterfly.git <span class="comment"># https</span></span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>git官方文档：<a href="https://git-scm.com/doc">https://git-scm.com/doc</a></p><p>macOS设置git的ssh代理主要参考：<a href="https://gist.github.com/chuyik/02d0d37a49edc162546441092efae6a1">https://gist.github.com/chuyik/02d0d37a49edc162546441092efae6a1</a></p><p><a href="https://gist.github.com/chenshengzhi/07e5177b1d97587d5ca0acc0487ad677">https://gist.github.com/chenshengzhi/07e5177b1d97587d5ca0acc0487ad677</a></p><p><a href="https://blog.csdn.net/u013247461/article/details/100164454?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control">https://blog.csdn.net/u013247461/article/details/100164454?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control</a></p><p><a href="https://blog.csdn.net/default7/article/details/100068256">https://blog.csdn.net/default7/article/details/100068256</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git 查看 config 配置信息</title>
+    <link href="https://weilining.cf/83.html"/>
+    <id>https://weilining.cf/83.html</id>
+    <published>2021-01-10T07:45:41.000Z</published>
+    <updated>2021-01-10T07:45:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="查看代理配置"><a href="#查看代理配置" class="headerlink" title="查看代理配置"></a>查看代理配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config http.proxy</span><br><span class="line">git config --<span class="built_in">local</span> http.proxy</span><br><span class="line">git config --global http.proxy</span><br><span class="line">git config --system http.proxy</span><br></pre></td></tr></table></figure><h2 id="配置列表"><a href="#配置列表" class="headerlink" title="配置列表"></a>配置列表</h2><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br><span class="line">git config --<span class="built_in">local</span> --list</span><br><span class="line">git config --global --list</span><br><span class="line">git config --system --list</span><br></pre></td></tr></table></figure><h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system-》global-》local</span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/merray/p/6006411.html">https://www.cnblogs.com/merray/p/6006411.html</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>域名检测工具推荐</title>
+    <link href="https://weilining.cf/82.html"/>
+    <id>https://weilining.cf/82.html</id>
+    <published>2021-01-10T02:24:22.000Z</published>
+    <updated>2021-01-10T02:24:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="在线"><a href="#在线" class="headerlink" title="在线"></a>在线</h2><p><a href="https://zijian.aliyun.com/">https://zijian.aliyun.com/</a></p><p><a href="https://domaintool.cloud.tencent.com/">https://domaintool.cloud.tencent.com/</a></p><a id="more"></a><p><a href="https://dns.google/">https://dns.google/</a> </p><h2 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nslookup weilining.cf</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo 实时编辑预览插件</title>
+    <link href="https://weilining.cf/81.html"/>
+    <id>https://weilining.cf/81.html</id>
+    <published>2021-01-09T10:59:24.000Z</published>
+    <updated>2021-01-09T10:59:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><a id="more"></a> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-browsersync</span><br></pre></td></tr></table></figure><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>这是一个辅助插件，使用者可自由选择是否安装。</p><p>每当你 <code>ctrl + s</code> 保存代码时，浏览器会自动刷新，而不是手动 <code>f5</code> ，并且终端和浏览器会弹出一个短暂的字幕提醒页面已修改。</p><h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm un hexo-browsersync</span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/hexojs/hexo-browsersync">https://github.com/hexojs/hexo-browsersync</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>macOS安装telnet命令</title>
+    <link href="https://weilining.cf/80.html"/>
+    <id>https://weilining.cf/80.html</id>
+    <published>2021-01-08T15:23:59.000Z</published>
+    <updated>2021-01-08T15:23:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="快速安装"><a href="#快速安装" class="headerlink" title="快速安装"></a>快速安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install telnet</span><br></pre></td></tr></table></figure><p><code>homebrew</code>博客有提到</p><a id="more"></a><h2 id="使用例子"><a href="#使用例子" class="headerlink" title="使用例子"></a>使用例子</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet www.baidu.com 80</span><br></pre></td></tr></table></figure><h2 id="在线应急"><a href="#在线应急" class="headerlink" title="在线应急"></a>在线应急</h2><p><a href="http://tool.chinaz.com/port/">http://tool.chinaz.com/port/</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mac 有效不生成.DS_Store</title>
+    <link href="https://weilining.cf/79.html"/>
+    <id>https://weilining.cf/79.html</id>
+    <published>2021-01-06T20:09:39.000Z</published>
+    <updated>2021-01-06T20:09:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="指定“排序方式”"><a href="#指定“排序方式”" class="headerlink" title="指定“排序方式”"></a>指定“排序方式”</h2><p>访达 ==》显示==》排序方式==》名称</p><a id="more"></a><h2 id="删除之前生成的-DS-Store"><a href="#删除之前生成的-DS-Store" class="headerlink" title="删除之前生成的.DS_Store"></a>删除之前生成的.DS_Store</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo find / -name <span class="string">&quot;.DS_Store&quot;</span> -depth -<span class="built_in">exec</span> rm &#123;&#125; \;</span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.jianshu.com/p/f49f6974f647">https://www.jianshu.com/p/f49f6974f647</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>有效撤销 git commit</title>
+    <link href="https://weilining.cf/78.html"/>
+    <id>https://weilining.cf/78.html</id>
+    <published>2021-01-06T20:05:17.000Z</published>
+    <updated>2021-01-06T20:05:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="撤销commit代码"><a href="#撤销commit代码" class="headerlink" title="撤销commit代码"></a>撤销commit代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --soft HEAD^</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="日志查询"><a href="#日志查询" class="headerlink" title="日志查询"></a>日志查询</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure><h2 id="强制推送"><a href="#强制推送" class="headerlink" title="强制推送"></a>强制推送</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin HEAD:master --force <span class="comment"># 推送到服务器，一定要加 --force 参数 &quot;master&quot;:对应的分支即可</span></span><br></pre></td></tr></table></figure><h2 id="本地撤销到某个commit"><a href="#本地撤销到某个commit" class="headerlink" title="本地撤销到某个commit"></a>本地撤销到某个commit</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment"># 1.找到想要退回到commit_id</span></span><br><span class="line">git reset --hard commit_id <span class="comment"># 2.本地代码变成某个提交记录时刻的代码</span></span><br><span class="line">git reset commit_id  <span class="comment"># 3.完成撤销，停留在当前版本，之前的代码还是在的。只是本地的提交记录没了</span></span><br></pre></td></tr></table></figure><h2 id="远程撤销到某个commit"><a href="#远程撤销到某个commit" class="headerlink" title="远程撤销到某个commit"></a>远程撤销到某个commit</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment"># 1.找到想要退回到commit_id</span></span><br><span class="line">git reset --hard commit_id <span class="comment"># 2.本地代码变成某个提交记录时刻的代码</span></span><br><span class="line">git push origin HEAD:master --force <span class="comment"># 3.推送到服务器，一定要加 --force 参数 &quot;master&quot;:对应的分支即可</span></span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/w958796636/article/details/53611133">https://blog.csdn.net/w958796636/article/details/53611133</a></p><p><a href="https://www.cnblogs.com/niuben/p/13355521.html">https://www.cnblogs.com/niuben/p/13355521.html</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2021 Hexo Next 上手记录</title>
+    <link href="https://weilining.cf/77.html"/>
+    <id>https://weilining.cf/77.html</id>
+    <published>2021-01-06T16:20:55.000Z</published>
+    <updated>2021-01-06T16:20:55.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br><span class="line">node --version</span><br></pre></td></tr></table></figure><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g &amp;&amp; hexo init blog &amp;&amp; <span class="built_in">cd</span> blog &amp;&amp; npm un hexo-theme-landscape &amp;&amp; npm i hexo-theme-next</span><br></pre></td></tr></table></figure><a id="more"></a><p> 苹果系统<code>sudo npm install hexo-cli -g</code> </p><h2 id="更换默认主题"><a href="#更换默认主题" class="headerlink" title="更换默认主题"></a>更换默认主题</h2><p><code>_config.yml</code>找到<code>theme: landscape</code>换成<code>theme: next</code></p><h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo s</span><br></pre></td></tr></table></figure><p><a href="http://localhost:4000/">http://localhost:4000</a></p><h2 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o _config.butterfly.yml https://cdn.jsdelivr.net/gh/next-theme/hexo-theme-next/_config.yml</span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/next-theme/hexo-theme-next/blob/master/_config.yml">https://github.com/next-theme/hexo-theme-next/blob/master/_config.yml</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2021 Oh My Zsh 上手</title>
+    <link href="https://weilining.cf/76.html"/>
+    <id>https://weilining.cf/76.html</id>
+    <published>2021-01-06T15:37:13.000Z</published>
+    <updated>2021-01-06T15:37:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://cdn.jsdelivr.net/gh/ohmyzsh/ohmyzsh/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure><p><code>Do you want to change your default shell to zsh? [Y/n]</code>填<code>Y</code></p><a id="more"></a><h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://cdn.jsdelivr.net/gh/ohmyzsh/ohmyzsh/tools/uninstall.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure><h2 id="改变默认的shell"><a href="#改变默认的shell" class="headerlink" title="改变默认的shell"></a>改变默认的shell</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure><p>重新启动终端即可。</p><h2 id="从-zsh-切换回-bash"><a href="#从-zsh-切换回-bash" class="headerlink" title="从 zsh 切换回 bash"></a>从 zsh 切换回 bash</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/bash</span><br></pre></td></tr></table></figure><h2 id="查看当前使用的shell"><a href="#查看当前使用的shell" class="headerlink" title="查看当前使用的shell"></a>查看当前使用的shell</h2><p>系统默认</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $SHELL</span><br></pre></td></tr></table></figure><h2 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h2><p><a href="https://github.com/ohmyzsh/ohmyzsh">https://github.com/ohmyzsh/ohmyzsh</a></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2021 iterm2 上手</title>
+    <link href="https://weilining.cf/75.html"/>
+    <id>https://weilining.cf/75.html</id>
+    <published>2021-01-06T15:04:08.000Z</published>
+    <updated>2021-01-06T15:04:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="官网下载"><a href="#官网下载" class="headerlink" title="官网下载"></a>官网下载</h2><p><a href="https://iterm2.com/downloads.html">https://iterm2.com/downloads.html</a></p><p>我用这个<a href="https://iterm2.com/downloads/stable/iTerm2-3_4_3.zip">https://iterm2.com/downloads/stable/iTerm2-3_4_3.zip</a></p><a id="more"></a><h2 id="Mac使用iterm2的理由"><a href="#Mac使用iterm2的理由" class="headerlink" title="Mac使用iterm2的理由"></a>Mac使用iterm2的理由</h2><p>大家都知道<a href="https://code.visualstudio.com/">Visual Studio Code</a>分屏操作是<code>command + 2</code>，两个框独立；而Mac的terminal.app的拆分面板是<code>command + D</code>，两个框完全同步操作</p><table><thead><tr><th>软件名称</th><th>分屏独立操作</th></tr></thead><tbody><tr><td>terminal.app</td><td>否</td></tr><tr><td>iterm.app</td><td>是</td></tr></tbody></table>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>brew Error:homebrew-core is a shallow clone.解决办法</title>
+    <link href="https://weilining.cf/74.html"/>
+    <id>https://weilining.cf/74.html</id>
+    <published>2021-01-06T13:49:18.000Z</published>
+    <updated>2021-01-06T13:49:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://cdn.jsdelivr.net/gh/Homebrew/install/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure><p>安装完成或者<code>brew update</code>出现下面错误提示</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: </span><br><span class="line">  homebrew-core is a shallow <span class="built_in">clone</span>.</span><br><span class="line">To `brew update`, first run:</span><br><span class="line">  git -C /usr/<span class="built_in">local</span>/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>/Library/Taps/&quot;</span></span><br><span class="line">rm -rf homebrew</span><br><span class="line">mkdir homebrew</span><br><span class="line"><span class="built_in">cd</span> homebrew</span><br><span class="line">git <span class="built_in">clone</span> git://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line"><span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core&quot;</span></span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br></pre></td></tr></table></figure><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><code>brew update</code></p><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">==&gt; Homebrew has enabled anonymous aggregate formula and cask analytics.</span><br><span class="line">Read the analytics documentation (and how to opt-out) here:</span><br><span class="line">  https://docs.brew.sh/Analytics</span><br><span class="line">No analytics have been recorded yet (or will be during this `brew` run).</span><br><span class="line"></span><br><span class="line">==&gt; Homebrew is run entirely by unpaid volunteers. Please consider donating:</span><br><span class="line">  https://github.com/Homebrew/brew#donations</span><br><span class="line">Already up-to-date.</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo英文和中文之间自动加空格</title>
+    <link href="https://weilining.cf/73.html"/>
+    <id>https://weilining.cf/73.html</id>
+    <published>2021-01-05T16:08:12.000Z</published>
+    <updated>2021-01-05T16:08:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="效果对比"><a href="#效果对比" class="headerlink" title="效果对比"></a>效果对比</h2><table><thead><tr><th>名称</th><th>链接</th><th>范围</th><th>生成速度</th></tr></thead><tbody><tr><td><a href="https://github.com/vinta/pangu.js">pangu</a></td><td>中英文不空格，链接不失效</td><td>可控制任意地方空格</td><td>无影响</td></tr><tr><td><a href="https://github.com/hexojs/hexo-filter-auto-spacing">hexo-filter-auto-spacing</a></td><td>中英文空格，导致链接失效</td><td>只能全站空格</td><td>遍历所有html，超慢</td></tr></tbody></table><h2 id="推荐盘古"><a href="#推荐盘古" class="headerlink" title="推荐盘古"></a>推荐盘古</h2><p><a href="https://github.com/vinta/pangu.js">https://github.com/vinta/pangu.js</a></p><p><code>Butterfly 3.5.1</code>主题测试通过，其他主题请翻阅主题文档。</p><p>没有请创建<code>_config.butterfly.yml</code>，修改为以下代码</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pangu:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure><h2 id="Hexo官方插件hexo-filter-auto-spacing"><a href="#Hexo官方插件hexo-filter-auto-spacing" class="headerlink" title="Hexo官方插件hexo-filter-auto-spacing"></a>Hexo官方插件hexo-filter-auto-spacing</h2><p>不推荐，会把链接中英文也空格了，导致链接失效</p><p><a href="https://github.com/hexojs/hexo-filter-auto-spacing">https://github.com/hexojs/hexo-filter-auto-spacing</a></p><p><a href="https://hexo.io/zh-cn/docs/configuration">https://hexo.io/zh-cn/docs/configuration</a></p><p><a href="https://github.com/hexojs/hexo/issues/1242">https://github.com/hexojs/hexo/issues/1242</a></p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-filter-auto-spacing</span><br></pre></td></tr></table></figure><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p><code>_config.yml</code>加上</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">auto_spacing:</span> <span class="literal">true</span> <span class="comment">#实测false无效,不用的时候卸载即可</span></span><br></pre></td></tr></table></figure><a id="more"></a><h3 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo s</span><br></pre></td></tr></table></figure><p><a href="http://localhost:4000/">http://localhost:4000</a></p><h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm un hexo-filter-auto-spacing</span><br></pre></td></tr></table></figure><h3 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h3><p>官方插件不依赖主题，但是<code>hexo s</code>奇慢，如果接受不了，请使用您主题集成的<code>pangu</code></p>]]></content>
+    
+    
+    <summary type="html">default</summary>
+    
+    
+    
+    <category term="default" scheme="https://weilining.cf/categories/default/"/>
+    
+    
+    <category term="default" scheme="https://weilining.cf/tags/default/"/>
+    
+  </entry>
+  
+</feed>

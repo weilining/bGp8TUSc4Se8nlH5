@@ -1,0 +1,543 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>markdown 运行 html css js 实现github calendar中文插件 | Ln's Blog</title><meta name="keywords" content="default"><meta name="author" content="Ln"><meta name="copyright" content="Ln"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="default">
+<meta property="og:type" content="article">
+<meta property="og:title" content="markdown 运行 html css js 实现github calendar中文插件">
+<meta property="og:url" content="https://weilining.cf/39.html">
+<meta property="og:site_name" content="Ln&#39;s Blog">
+<meta property="og:description" content="default">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/weilining/img/menhera/19.png">
+<meta property="article:published_time" content="2020-12-19T15:19:59.000Z">
+<meta property="article:modified_time" content="2020-12-19T15:19:59.000Z">
+<meta property="article:author" content="Ln">
+<meta property="article:tag" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/weilining/img/menhera/19.png"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/weilining/img@main/img/favicon-16x16-next.png"><link rel="canonical" href="https://weilining.cf/39"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="baidu-site-verification" content="code-wFDrn4lvkD"/><link rel="stylesheet" href="/bGp8TUSc4Se8nlH5/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/bGp8TUSc4Se8nlH5/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":30,"position":"top","messagePrev":"本文修改于","messageNext":"天前，如果本文有一定的时效性，那么本文可能已经失效~"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ln","link":"链接: ","source":"来源: Ln's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+const saveToLocal = {
+  // ttl 單位是 天
+  set: function setWithExpiry(key, value, ttl) {
+    if (ttl === 0) return
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-12-19 23:19:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}const fontSizeVal = saveToLocal.get('global-font-size')
+if (fontSizeVal !== undefined) {
+  document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+}})()</script><style>#page-header {background-color: transparent;}</style><style>.article-title:hover, .post-title:hover,#site-title:hover { animation: shake-it 0.5s reverse infinite cubic-bezier(0.68, -0.55, 0.27, 1.55); } @keyframes shake-it { 0% { text-shadow: 0 0 rgba(0, 255, 255, 0.5), 0 0 rgba(255, 0, 0, 0.5); } 25% { text-shadow: -2px 0 rgba(0, 255, 255, 0.5), 2px 0 rgba(255, 0, 0, 0.5); } 50% { text-shadow: -5px 0 rgba(0, 255, 255, 0.5), 3px 0 rgba(255, 0, 0, 0.5); } 100% { text-shadow: 3px 0 rgba(0, 255, 255, 0.5), 5px 0 rgba(255, 0, 0, 0.5); } }</style><style>#page-header #page-site-info .post-edit-link{display:none}#page-header #page-site-info :hover .post-edit-link{display:inline-block}#post-info .post-edit-link{display:none}#post-info :hover .post-edit-link{display:inline-block}#article-container .headerlink::before{content:"\f0c1";font-family:"Font Awesome 5 Free";font-weight:900}#article-container .headerlink{float:right;display:none}#article-container :hover .headerlink{display:inline-block}</style><style>#article-container.post-content h1:before, h2:before, h3:before, h4:before, h5:before, h6:before, hr:before { -webkit-animation: avatar_turn_around 1s linear infinite; -moz-animation: avatar_turn_around 1s linear infinite; -o-animation: avatar_turn_around 1s linear infinite; -ms-animation: avatar_turn_around 1s linear infinite; animation: avatar_turn_around 1s linear infinite; }</style><style type="text/css">.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/bGp8TUSc4Se8nlH5/atom.xml" title="Ln's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img@main/img/20201120235415.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/bGp8TUSc4Se8nlH5/archives/"><div class="headline">文章</div><div class="length-num">92</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bGp8TUSc4Se8nlH5/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bGp8TUSc4Se8nlH5/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/echarts/"><i class="fa-fw fas fa-chart-bar"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-flask fa-fw"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/timeline/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/test/"><i class="fa-fw fas fa-vials"></i><span> 测试点</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-fw fa fa-list-alt"></i><span> 单页</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/snow/"><i class="fa-fw fas fa-snowflake"></i><span> 下雪</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/baidu/"><i class="fa-fw fab fa-searchengin"></i><span> 帮搜</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura1/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨1</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura2/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨2</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/digitalrain/"><i class="fa-fw fas fa-cloud-rain"></i><span> 数字雨</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/snow1/"><i class="fa-fw fas fa-snowflake"></i><span> 下雪1</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/klkp/"><i class="fa-fw fas fa-snowflake"></i><span> 恐龙快跑</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/random/"><i class="fa-fw fas fa-random"></i><span> 随机文章</span></a></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/weilining/img/menhera/19.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/bGp8TUSc4Se8nlH5/">Ln's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/echarts/"><i class="fa-fw fas fa-chart-bar"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-flask fa-fw"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/timeline/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/test/"><i class="fa-fw fas fa-vials"></i><span> 测试点</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-fw fa fa-list-alt"></i><span> 单页</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/snow/"><i class="fa-fw fas fa-snowflake"></i><span> 下雪</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/baidu/"><i class="fa-fw fab fa-searchengin"></i><span> 帮搜</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura1/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨1</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura2/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨2</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/digitalrain/"><i class="fa-fw fas fa-cloud-rain"></i><span> 数字雨</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/snow1/"><i class="fa-fw fas fa-snowflake"></i><span> 下雪1</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/klkp/"><i class="fa-fw fas fa-snowflake"></i><span> 恐龙快跑</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/random/"><i class="fa-fw fas fa-random"></i><span> 随机文章</span></a></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">markdown 运行 html css js 实现github calendar中文插件<a class="post-edit-link" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/weilining/weilining.cf/edit/main/source/_posts/39.md" title="编辑"><i class="fa fa-pen-nib"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-19T15:19:59.000Z" title="发表于 2020-12-19 23:19:59">2020-12-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-12-19T15:19:59.000Z" title="更新于 2020-12-19 23:19:59">2020-12-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/bGp8TUSc4Se8nlH5/39.html#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Bloggify/github-calendar">https://github.com/Bloggify/github-calendar</a></p>
+<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/questions/34516592/embed-github-contributions-graph-in-website">https://stackoverflow.com/questions/34516592/embed-github-contributions-graph-in-website</a></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/gh/IonicaBizau/github-calendar/dist/github-calendar.css&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/gh/IonicaBizau/github-calendar/dist/github-calendar.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Optionally, include the theme (if you don&#x27;t want to struggle to write the CSS) --&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Prepare a container for your calendar. --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;calendar&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Loading stuff --&gt;</span></span><br><span class="line">  Loading the data just for you.</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">new</span> GitHubCalendar(<span class="string">&quot;.calendar&quot;</span>, <span class="string">&quot;weilining&quot;</span>);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/IonicaBizau/github-calendar/dist/github-calendar.css"/>
+<script src="https://cdn.jsdelivr.net/gh/IonicaBizau/github-calendar/dist/github-calendar.min.js"></script>
+
+<!-- Optionally, include the theme (if you don't want to struggle to write the CSS) -->
+
+
+<!-- Prepare a container for your calendar. -->
+<div class="calendar">
+  <!-- Loading stuff -->
+  Loading the data just for you.
+</div>
+
+<script>
+  new GitHubCalendar(".calendar", "weilining");
+</script>
+
+
+<h2 id="官网-1"><a href="#官网-1" class="headerlink" title="官网"></a>官网</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Zfour/Butterfly-gitcalendar">https://github.com/Zfour/Butterfly-gitcalendar</a></p>
+<a id="more"></a>
+
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><h3 id="未开pjax"><a href="#未开pjax" class="headerlink" title="未开pjax"></a>未开pjax</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;recent-post-item&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100%&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;calendar&quot;</span> <span class="attr">id</span>=<span class="string">&quot;calendar&quot;</span>&gt;</span></span><br><span class="line">    &lt;div</span><br><span class="line">      id=&quot;gitmessage&quot;</span><br><span class="line">      :style=&quot;&#123;top:y+px,left:x+px,position: fixed,zIndex:9999&#125;&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;angle-wrapper&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;span1&#125;&#125; <span class="symbol">&amp;nbsp;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;span2&#125;&#125; 次上传<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;position-relative&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;border py-2 graph-before-activity-overview&quot;</span>&gt;</span></span><br><span class="line">        &lt;div</span><br><span class="line">          class=&quot;js-calendar-graph mx-md-2 mx-3 d-flex flex-column flex-items-end flex-xl-items-center overflow-hidden pt-1 is-graph-loading graph-canvas calendar-graph height-full text-center&quot;</span><br><span class="line">          data-graph-url=&quot;/users/Zfour/contributions?to=2020-10-29&quot;</span><br><span class="line">          data-url=&quot;/Zfour&quot;</span><br><span class="line">          data-from=&quot;2019-10-27 00:00:00 UTC&quot;</span><br><span class="line">          data-to=&quot;2020-10-29 23:59:59 UTC&quot;</span><br><span class="line">          data-org=&quot;data-org&quot;</span><br><span class="line">        &gt;</span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;calendarcanvasbox&quot;</span> <span class="attr">v-if</span>=<span class="string">&quot;simplemode&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;gitcanvas&quot;</span> <span class="attr">style</span>=<span class="string">&quot;animation: none&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          &lt;svg</span><br><span class="line">            class=&quot;js-calendar-graph-svg&quot;</span><br><span class="line">            width=&quot;100%&quot;</span><br><span class="line">            viewBox=&quot;0 0 770 128&quot;</span><br><span class="line">            v-if=&quot;!simplemode&quot;</span><br><span class="line">          &gt;</span><br><span class="line">            &lt;text</span><br><span class="line">              class=&quot;month&quot;</span><br><span class="line">              :x=&quot;32 + monthindex*64&quot;</span><br><span class="line">              y=&quot;20&quot;</span><br><span class="line">              v-for=&quot;(month,monthindex) in monthchange&quot;</span><br><span class="line">            &gt;</span><br><span class="line">              &#123;&#123;month&#125;&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">text</span> <span class="attr">class</span>=<span class="string">&quot;wday&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;start&quot;</span> <span class="attr">dx</span>=<span class="string">&quot;0&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;40&quot;</span>&gt;</span>日<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">text</span> <span class="attr">class</span>=<span class="string">&quot;wday&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;start&quot;</span> <span class="attr">dx</span>=<span class="string">&quot;0&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;65&quot;</span>&gt;</span>二<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">text</span> <span class="attr">class</span>=<span class="string">&quot;wday&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;start&quot;</span> <span class="attr">dx</span>=<span class="string">&quot;0&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;90&quot;</span>&gt;</span>四<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">text</span> <span class="attr">class</span>=<span class="string">&quot;wday&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;start&quot;</span> <span class="attr">dx</span>=<span class="string">&quot;0&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;115&quot;</span>&gt;</span>六<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">            &lt;g</span><br><span class="line">              v-for=&quot;(weekitem,weekIndex) in data&quot;</span><br><span class="line">              :transform=&quot;&#x27;translate(&#x27;+ (16 + weekIndex*14) + &#x27;,&#x27; + &#x27;0)&#x27;&quot;</span><br><span class="line">            &gt;</span><br><span class="line">              &lt;rect</span><br><span class="line">                @mouseover=&quot;selectStyle(dayitem,$event)&quot;</span><br><span class="line">                @mouseleave=&quot;outStyle()&quot;</span><br><span class="line">                v-for=&quot;(dayitem,dayIndex) in weekitem&quot;</span><br><span class="line">                :style=&quot;&#123;fill:thiscolor(dayitem.count),shapeRendering:crispedges&#125;&quot;</span><br><span class="line">                :data-score=&quot;dayitem.count&quot;</span><br><span class="line">                :data-date=&quot;dayitem.date&quot;</span><br><span class="line">                x=&quot;0&quot;</span><br><span class="line">                :y=&quot; 30 + dayIndex*13 &quot;</span><br><span class="line">                width=&quot;11&quot;</span><br><span class="line">                height=&quot;11&quot;</span><br><span class="line">              &gt;<span class="tag">&lt;/<span class="name">rect</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;contrib-footer clearfix mt-1 mx-3 px-3 pb-1&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;float-left text-gray&quot;</span>&gt;</span></span><br><span class="line">            数据来源</span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">:href</span>=<span class="string">&quot;&#x27;https://github.com/&#x27;+ user &quot;</span> <span class="attr">target</span>=<span class="string">&quot;blank&quot;</span>&gt;</span>@&#123;&#123;user&#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          &lt;div</span><br><span class="line">            class=&quot;contrib-legend text-gray&quot;</span><br><span class="line">            title=&quot;A summary of pull requests, issues opened, and commits to the default and gh-pages branches.&quot;</span><br><span class="line">          &gt;</span><br><span class="line">            Less</span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;legend&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">li</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;backgroundColor:color[0]&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">li</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;backgroundColor:color[2]&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">li</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;backgroundColor:color[4]&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">li</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;backgroundColor:color[6]&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">li</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;backgroundColor:color[8]&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">            More</span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;contrib-column contrib-column-first table-column&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span>过去一年提交&lt;/span</span><br><span class="line">      &gt;<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;contrib-number&quot;</span>&gt;</span>&#123;&#123;total&#125;&#125;&lt;/span</span><br><span class="line">      &gt;<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span></span></span><br><span class="line"><span class="tag">        &gt;</span>&#123;&#123;oneyearbeforeday&#125;&#125;<span class="symbol">&amp;nbsp;</span>-<span class="symbol">&amp;nbsp;</span>&#123;&#123;thisday&#125;&#125;&lt;/span</span><br><span class="line">      &gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;contrib-column table-column&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span>最近一月提交&lt;/span</span><br><span class="line">      &gt;<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;contrib-number&quot;</span>&gt;</span>&#123;&#123;thisweekdatacore&#125;&#125;&lt;/span</span><br><span class="line">      &gt;<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span>&#123;&#123;amonthago&#125;&#125;<span class="symbol">&amp;nbsp;</span>-<span class="symbol">&amp;nbsp;</span>&#123;&#123;thisday&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;contrib-column table-column&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span>最近一周提交&lt;/span</span><br><span class="line">      &gt;<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;contrib-number&quot;</span>&gt;</span>&#123;&#123;weekdatacore&#125;&#125;&lt;/span</span><br><span class="line">      &gt;<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span>&#123;&#123;aweekago&#125;&#125;<span class="symbol">&amp;nbsp;</span>-<span class="symbol">&amp;nbsp;</span>&#123;&#123;thisday&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/gh/Zfour/Butterfly-gitcalendar/gitcalendar/css/gitcalendar.css&quot;</span> <span class="attr">media</span>=<span class="string">&quot;defer&quot;</span> <span class="attr">onload</span>=<span class="string">&quot;this.media=&#x27;all&#x27;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span> <span class="attr">src</span>=<span class="string">&quot;https://rmt.dogedoge.com/fetch/~/source/jsdelivr/npm/jquery@latest/dist/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/vue@2.6.11&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span> <span class="attr">data-pjax</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/gh/Zfour/Butterfly-gitcalendar/gitcalendar/js/gitcalendar.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="开pjax"><a href="#开pjax" class="headerlink" title="开pjax"></a>开pjax</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br></pre></td><td class="code"><pre><span class="line">var calendar &#x3D; new Vue(&#123;</span><br><span class="line">  el: &quot;#calendar&quot;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    simplemode: true, &#x2F;&#x2F;打开时使用canvas绘制gitcalendar，关闭时使用svg绘制gitcalendar</span><br><span class="line">    &#x2F;&#x2F;canvas：dom数少，但图像会发生模糊，自适应一般  svg：dom数多，图像清晰，自适应更佳</span><br><span class="line"></span><br><span class="line">    user: &quot;weilining&quot;, &#x2F;&#x2F;这里填写你的github用户名</span><br><span class="line"></span><br><span class="line">    fixed: &quot;fixed&quot;,</span><br><span class="line">    px: &quot;px&quot;,</span><br><span class="line">    x: &quot;&quot;,</span><br><span class="line">    y: &quot;&quot;,</span><br><span class="line">    span1: &quot;&quot;,</span><br><span class="line">    span2: &quot;&quot;,</span><br><span class="line">    month: [</span><br><span class="line">      &quot;一月&quot;,</span><br><span class="line">      &quot;二月&quot;,</span><br><span class="line">      &quot;三月&quot;,</span><br><span class="line">      &quot;四月&quot;,</span><br><span class="line">      &quot;五月&quot;,</span><br><span class="line">      &quot;六月&quot;,</span><br><span class="line">      &quot;七月&quot;,</span><br><span class="line">      &quot;八月&quot;,</span><br><span class="line">      &quot;九月&quot;,</span><br><span class="line">      &quot;十月&quot;,</span><br><span class="line">      &quot;十一月&quot;,</span><br><span class="line">      &quot;十二月&quot;,</span><br><span class="line">    ],</span><br><span class="line">    monthchange: [],</span><br><span class="line">    oneyearbeforeday: &quot;&quot;,</span><br><span class="line">    thisday: &quot;&quot;,</span><br><span class="line">    amonthago: &quot;&quot;,</span><br><span class="line">    aweekago: &quot;&quot;,</span><br><span class="line">    weekdatacore: 0,</span><br><span class="line">    datacore: 0,</span><br><span class="line">    total: 0,</span><br><span class="line">    datadate: &quot;&quot;,</span><br><span class="line">    data: [],</span><br><span class="line">    positionplusdata: [],</span><br><span class="line">    firstweek: [],</span><br><span class="line">    lastweek: [],</span><br><span class="line">    beforeweek: [],</span><br><span class="line">    thisweekdatacore: 0,</span><br><span class="line">    mounthbeforeday: 0,</span><br><span class="line">    mounthfirstindex: 0,</span><br><span class="line">    crispedges: &quot;crispedges&quot;,</span><br><span class="line">    thisdayindex: 0,</span><br><span class="line">    amonthagoindex: 0,</span><br><span class="line">    amonthagoweek: [],</span><br><span class="line">    firstdate: [],</span><br><span class="line">    first2date: [],</span><br><span class="line">    montharrbefore: [],</span><br><span class="line">    monthindex: 0,</span><br><span class="line">    purple: [</span><br><span class="line">      &quot;#ebedf0&quot;,</span><br><span class="line">      &quot;#fdcdec&quot;,</span><br><span class="line">      &quot;#fc9bd9&quot;,</span><br><span class="line">      &quot;#fa6ac5&quot;,</span><br><span class="line">      &quot;#f838b2&quot;,</span><br><span class="line">      &quot;#f5089f&quot;,</span><br><span class="line">      &quot;#c4067e&quot;,</span><br><span class="line">      &quot;#92055e&quot;,</span><br><span class="line">      &quot;#540336&quot;,</span><br><span class="line">      &quot;#48022f&quot;,</span><br><span class="line">      &quot;#30021f&quot;,</span><br><span class="line">    ],</span><br><span class="line">    green: [</span><br><span class="line">      &quot;#ebedf0&quot;,</span><br><span class="line">      &quot;#f0fff4&quot;,</span><br><span class="line">      &quot;#dcffe4&quot;,</span><br><span class="line">      &quot;#bef5cb&quot;,</span><br><span class="line">      &quot;#85e89d&quot;,</span><br><span class="line">      &quot;#34d058&quot;,</span><br><span class="line">      &quot;#28a745&quot;,</span><br><span class="line">      &quot;#22863a&quot;,</span><br><span class="line">      &quot;#176f2c&quot;,</span><br><span class="line">      &quot;#165c26&quot;,</span><br><span class="line">      &quot;#144620&quot;,</span><br><span class="line">    ],</span><br><span class="line">    blue: [</span><br><span class="line">      &quot;#ebedf0&quot;,</span><br><span class="line">      &quot;#f1f8ff&quot;,</span><br><span class="line">      &quot;#dbedff&quot;,</span><br><span class="line">      &quot;#c8e1ff&quot;,</span><br><span class="line">      &quot;#79b8ff&quot;,</span><br><span class="line">      &quot;#2188ff&quot;,</span><br><span class="line">      &quot;#0366d6&quot;,</span><br><span class="line">      &quot;#005cc5&quot;,</span><br><span class="line">      &quot;#044289&quot;,</span><br><span class="line">      &quot;#032f62&quot;,</span><br><span class="line">      &quot;#05264c&quot;,</span><br><span class="line">    ],</span><br><span class="line">    color: [</span><br><span class="line">      &quot;#ebedf0&quot;,</span><br><span class="line">      &quot;#fdcdec&quot;,</span><br><span class="line">      &quot;#fc9bd9&quot;,</span><br><span class="line">      &quot;#fa6ac5&quot;,</span><br><span class="line">      &quot;#f838b2&quot;,</span><br><span class="line">      &quot;#f5089f&quot;,</span><br><span class="line">      &quot;#c4067e&quot;,</span><br><span class="line">      &quot;#92055e&quot;,</span><br><span class="line">      &quot;#540336&quot;,</span><br><span class="line">      &quot;#48022f&quot;,</span><br><span class="line">      &quot;#30021f&quot;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    selectStyle(data, event) &#123;</span><br><span class="line">      $(&quot;.angle-wrapper&quot;).show();</span><br><span class="line">      this.span1 &#x3D; data.date;</span><br><span class="line">      this.span2 &#x3D; data.count;</span><br><span class="line">      this.x &#x3D; event.clientX - 100;</span><br><span class="line">      this.y &#x3D; event.clientY - 60;</span><br><span class="line">    &#125;,</span><br><span class="line">    outStyle() &#123;</span><br><span class="line">      $(&quot;.angle-wrapper&quot;).hide();</span><br><span class="line">    &#125;,</span><br><span class="line">    thiscolor(x) &#123;</span><br><span class="line">      if (x &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">        var i &#x3D; parseInt(x &#x2F; 2);</span><br><span class="line">        return this.color[0];</span><br><span class="line">      &#125; else if (x &lt; 2) &#123;</span><br><span class="line">        return this.color[1];</span><br><span class="line">      &#125; else if (x &lt; 20) &#123;</span><br><span class="line">        var i &#x3D; parseInt(x &#x2F; 2);</span><br><span class="line">        return this.color[i];</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        return this.color[9];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">var githubapiurl &#x3D; &quot;https:&#x2F;&#x2F;githubapi.ryanchristian.dev&#x2F;user&#x2F;&quot; + calendar.user;</span><br><span class="line">$(function () &#123;</span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">    type: &quot;GET&quot;,</span><br><span class="line">    url: githubapiurl,</span><br><span class="line">    dataType: &quot;json&quot;,</span><br><span class="line">    success: function (data) &#123;</span><br><span class="line">      calendar.data &#x3D; data.contributions;</span><br><span class="line">      calendar.total &#x3D; data.total;</span><br><span class="line">      calendar.first2date &#x3D; calendar.data[48];</span><br><span class="line">      calendar.firstdate &#x3D; calendar.data[47];</span><br><span class="line">      calendar.firstweek &#x3D; data.contributions[0];</span><br><span class="line">      calendar.lastweek &#x3D; data.contributions[52];</span><br><span class="line">      calendar.beforeweek &#x3D; data.contributions[51];</span><br><span class="line">      calendar.thisdayindex &#x3D; calendar.lastweek.length - 1;</span><br><span class="line">      calendar.thisday &#x3D; calendar.lastweek[calendar.thisdayindex].date;</span><br><span class="line">      calendar.oneyearbeforeday &#x3D; calendar.firstweek[0].date;</span><br><span class="line">      calendar.monthindex &#x3D; calendar.thisday.substring(5, 7) * 1;</span><br><span class="line">      calendar.montharrbefore &#x3D; calendar.month.splice(</span><br><span class="line">        calendar.monthindex,</span><br><span class="line">        12 - calendar.monthindex</span><br><span class="line">      );</span><br><span class="line">      calendar.monthchange &#x3D; calendar.montharrbefore.concat(calendar.month);</span><br><span class="line">      addweek();</span><br><span class="line">      addlastmonth();</span><br><span class="line"></span><br><span class="line">      function responsiveChart() &#123;</span><br><span class="line">        var c &#x3D; document.getElementById(&quot;gitcanvas&quot;);</span><br><span class="line">        var cmessage &#x3D; document.getElementById(&quot;gitmessage&quot;);</span><br><span class="line">        var ctx &#x3D; c.getContext(&quot;2d&quot;);</span><br><span class="line">        c.width &#x3D; document.getElementById(&quot;calendarcanvasbox&quot;).offsetWidth;</span><br><span class="line">        var linemaxwitdh &#x3D; (0.96 * c.width) &#x2F; calendar.data.length;</span><br><span class="line">        c.height &#x3D; 9 * linemaxwitdh;</span><br><span class="line">        var lineminwitdh &#x3D; 0.8 * linemaxwitdh;</span><br><span class="line">        var setposition &#x3D; &#123;</span><br><span class="line">          x: 0.02 * c.width,</span><br><span class="line">          y: 0.025 * c.width,</span><br><span class="line">        &#125;;</span><br><span class="line">        for (var week in calendar.data) &#123;</span><br><span class="line">          weekdata &#x3D; calendar.data[week];</span><br><span class="line">          for (var day in weekdata) &#123;</span><br><span class="line">            var dataitem &#x3D; &#123; date: &quot;&quot;, count: &quot;&quot;, x: 0, y: 0 &#125;;</span><br><span class="line">            calendar.positionplusdata.push(dataitem);</span><br><span class="line">            ctx.fillStyle &#x3D; calendar.thiscolor(weekdata[day].count);</span><br><span class="line">            setposition.y &#x3D; Math.round(setposition.y * 100) &#x2F; 100;</span><br><span class="line">            dataitem.date &#x3D; weekdata[day].date;</span><br><span class="line">            dataitem.count &#x3D; weekdata[day].count;</span><br><span class="line">            dataitem.x &#x3D; setposition.x;</span><br><span class="line">            dataitem.y &#x3D; setposition.y;</span><br><span class="line">            ctx.fillRect(</span><br><span class="line">              setposition.x,</span><br><span class="line">              setposition.y,</span><br><span class="line">              lineminwitdh,</span><br><span class="line">              lineminwitdh</span><br><span class="line">            );</span><br><span class="line">            setposition.y &#x3D; setposition.y + linemaxwitdh;</span><br><span class="line">          &#125;</span><br><span class="line">          setposition.y &#x3D; 0.025 * c.width;</span><br><span class="line">          setposition.x &#x3D; setposition.x + linemaxwitdh;</span><br><span class="line">        &#125;</span><br><span class="line">        ctx.font &#x3D; &quot;600  Arial&quot;;</span><br><span class="line">        ctx.fillStyle &#x3D; &quot;#aaa&quot;;</span><br><span class="line">        ctx.fillText(&quot;日&quot;, 0, 1.9 * linemaxwitdh);</span><br><span class="line">        ctx.fillText(&quot;二&quot;, 0, 3.9 * linemaxwitdh);</span><br><span class="line">        ctx.fillText(&quot;四&quot;, 0, 5.9 * linemaxwitdh);</span><br><span class="line">        ctx.fillText(&quot;六&quot;, 0, 7.9 * linemaxwitdh);</span><br><span class="line">        var monthindexlist &#x3D; c.width &#x2F; 24;</span><br><span class="line">        for (var index in calendar.monthchange) &#123;</span><br><span class="line">          ctx.fillText(</span><br><span class="line">            calendar.monthchange[index],</span><br><span class="line">            monthindexlist,</span><br><span class="line">            0.7 * linemaxwitdh</span><br><span class="line">          );</span><br><span class="line">          monthindexlist &#x3D; monthindexlist + c.width &#x2F; 12;</span><br><span class="line">        &#125;</span><br><span class="line">        cmessage.onmousemove &#x3D; function (event) &#123;</span><br><span class="line">          $(&quot;.angle-wrapper&quot;).hide();</span><br><span class="line">        &#125;;</span><br><span class="line">        c.onmousemove &#x3D; function (event) &#123;</span><br><span class="line">          $(&quot;.angle-wrapper&quot;).hide();</span><br><span class="line">          getMousePos(c, event);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        function getMousePos(canvas, event) &#123;</span><br><span class="line">          var rect &#x3D; canvas.getBoundingClientRect();</span><br><span class="line">          var x &#x3D; event.clientX - rect.left * (canvas.width &#x2F; rect.width);</span><br><span class="line">          var y &#x3D; event.clientY - rect.top * (canvas.height &#x2F; rect.height);</span><br><span class="line">          &#x2F;&#x2F;console.log(&quot;x:&quot;+x+&quot;,y:&quot;+y);</span><br><span class="line">          for (var item of calendar.positionplusdata) &#123;</span><br><span class="line">            var lenthx &#x3D; x - item.x;</span><br><span class="line">            var lenthy &#x3D; y - item.y;</span><br><span class="line">            &#x2F;&#x2F;console.log(lenthx,lenthy);</span><br><span class="line">            if (0 &lt; lenthx &amp;&amp; lenthx &lt; lineminwitdh) &#123;</span><br><span class="line">              if (0 &lt; lenthy &amp;&amp; lenthy &lt; lineminwitdh) &#123;</span><br><span class="line">                &#x2F;&#x2F;console.log(item.date,item.count)</span><br><span class="line">                $(&quot;.angle-wrapper&quot;).show();</span><br><span class="line">                calendar.span1 &#x3D; item.date;</span><br><span class="line">                calendar.span2 &#x3D; item.count;</span><br><span class="line">                calendar.x &#x3D; event.clientX - 100;</span><br><span class="line">                calendar.y &#x3D; event.clientY - 60;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;if(0&lt; x - item.x &lt;lineminwitdh&amp;&amp;0&lt; y - item.y &lt;lineminwitdh)&#123;</span><br><span class="line">            &#x2F;&#x2F;console.log(item.count,item.date);</span><br><span class="line">            &#x2F;&#x2F;&#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      responsiveChart();</span><br><span class="line">      $(window).on(&quot;resize&quot;, responsiveChart);</span><br><span class="line">      window.onscroll &#x3D; function () &#123;</span><br><span class="line">        $(&quot;.angle-wrapper&quot;).hide();</span><br><span class="line">      &#125;;</span><br><span class="line">      console.log(calendar.positionplusdata);</span><br><span class="line"></span><br><span class="line">      function addlastmonth() &#123;</span><br><span class="line">        if (calendar.thisdayindex &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">          thisweekcore(52);</span><br><span class="line">          thisweekcore(51);</span><br><span class="line">          thisweekcore(50);</span><br><span class="line">          thisweekcore(49);</span><br><span class="line">          thisweekcore(48);</span><br><span class="line">          calendar.thisweekdatacore +&#x3D; calendar.firstdate[6].count;</span><br><span class="line">          calendar.amonthago &#x3D; calendar.firstdate[6].date;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          thisweekcore(52);</span><br><span class="line">          thisweekcore(51);</span><br><span class="line">          thisweekcore(50);</span><br><span class="line">          thisweekcore(49);</span><br><span class="line">          thisweek2core();</span><br><span class="line">          calendar.amonthago &#x3D;</span><br><span class="line">            calendar.first2date[calendar.thisdayindex - 1].date;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      function thisweek2core() &#123;</span><br><span class="line">        for (</span><br><span class="line">          var i &#x3D; calendar.thisdayindex - 1;</span><br><span class="line">          i &lt; calendar.first2date.length;</span><br><span class="line">          i++</span><br><span class="line">        ) &#123;</span><br><span class="line">          calendar.thisweekdatacore +&#x3D; calendar.first2date[i].count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      function thisweekcore(index) &#123;</span><br><span class="line">        for (var item of calendar.data[index]) &#123;</span><br><span class="line">          calendar.thisweekdatacore +&#x3D; item.count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      function addlastweek() &#123;</span><br><span class="line">        for (var item of calendar.lastweek) &#123;</span><br><span class="line">          calendar.weekdatacore +&#x3D; item.count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      function addbeforeweek() &#123;</span><br><span class="line">        for (</span><br><span class="line">          var i &#x3D; calendar.thisdayindex;</span><br><span class="line">          i &lt; calendar.beforeweek.length;</span><br><span class="line">          i++</span><br><span class="line">        ) &#123;</span><br><span class="line">          calendar.weekdatacore +&#x3D; calendar.beforeweek[i].count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      function addweek() &#123;</span><br><span class="line">        if (calendar.thisdayindex &#x3D;&#x3D;&#x3D; 6) &#123;</span><br><span class="line">          calendar.aweekago &#x3D; calendar.lastweek[0].date;</span><br><span class="line">          addlastweek();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          lastweek &#x3D; data.contributions[51];</span><br><span class="line">          calendar.aweekago &#x3D; lastweek[calendar.thisdayindex + 1].date;</span><br><span class="line">          addlastweek();</span><br><span class="line">          addbeforeweek();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">if (document.getElementById(&quot;calendarcanvasbox&quot;).offsetWidth &lt; 500) &#123;</span><br><span class="line">  calendar.simplemode &#x3D; false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a>效果</h2>
+<div class="recent-post-item" style="width: 100%">
+  <div class="calendar" id="calendar">
+    <div
+      id="gitmessage"
+      :style="{top:y+px,left:x+px,position: fixed,zIndex:9999}"
+    >
+      <div class="angle-wrapper">
+        <span>{{span1}} &nbsp;</span><span>{{span2}} 次上传</span>
+      </div>
+    </div>
+    <div class="position-relative">
+      <div class="border py-2 graph-before-activity-overview">
+        <div
+          class="js-calendar-graph mx-md-2 mx-3 d-flex flex-column flex-items-end flex-xl-items-center overflow-hidden pt-1 is-graph-loading graph-canvas calendar-graph height-full text-center"
+          data-graph-url="/users/Zfour/contributions?to=2020-10-29"
+          data-url="/Zfour"
+          data-from="2019-10-27 00:00:00 UTC"
+          data-to="2020-10-29 23:59:59 UTC"
+          data-org="data-org"
+        >
+          <div id="calendarcanvasbox" v-if="simplemode">
+            <canvas id="gitcanvas" style="animation: none"></canvas>
+          </div>
+          <svg
+            class="js-calendar-graph-svg"
+            width="100%"
+            viewBox="0 0 770 128"
+            v-if="!simplemode"
+          >
+            <text
+              class="month"
+              :x="32 + monthindex*64"
+              y="20"
+              v-for="(month,monthindex) in monthchange"
+            >
+              {{month}}
+            </text>
+            <text class="wday" text-anchor="start" dx="0" dy="40">日</text>
+            <text class="wday" text-anchor="start" dx="0" dy="65">二</text>
+            <text class="wday" text-anchor="start" dx="0" dy="90">四</text>
+            <text class="wday" text-anchor="start" dx="0" dy="115">六</text>
+            <g
+              v-for="(weekitem,weekIndex) in data"
+              :transform="'translate('+ (16 + weekIndex*14) + ',' + '0)'"
+            >
+              <rect
+                @mouseover="selectStyle(dayitem,$event)"
+                @mouseleave="outStyle()"
+                v-for="(dayitem,dayIndex) in weekitem"
+                :style="{fill:thiscolor(dayitem.count),shapeRendering:crispedges}"
+                :data-score="dayitem.count"
+                :data-date="dayitem.date"
+                x="0"
+                :y=" 30 + dayIndex*13 "
+                width="11"
+                height="11"
+              ></rect>
+            </g>
+          </svg>
+        </div>
+        <div class="contrib-footer clearfix mt-1 mx-3 px-3 pb-1">
+          <div class="float-left text-gray">
+            数据来源
+            <a :href="'https://github.com/'+ user " target="blank">@{{user}}</a>
+          </div>
+          <div
+            class="contrib-legend text-gray"
+            title="A summary of pull requests, issues opened, and commits to the default and gh-pages branches."
+          >
+            Less
+            <ul class="legend">
+              <li :style="{backgroundColor:color[0]}"></li>
+              <li :style="{backgroundColor:color[2]}"></li>
+              <li :style="{backgroundColor:color[4]}"></li>
+              <li :style="{backgroundColor:color[6]}"></li>
+              <li :style="{backgroundColor:color[8]}"></li>
+            </ul>
+            More
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contrib-column contrib-column-first table-column">
+      <span class="text-muted">过去一年提交</span
+      ><span class="contrib-number">{{total}}</span
+      ><span class="text-muted"
+        >{{oneyearbeforeday}}&nbsp;-&nbsp;{{thisday}}</span
+      >
+    </div>
+    <div class="contrib-column table-column">
+      <span class="text-muted">最近一月提交</span
+      ><span class="contrib-number">{{thisweekdatacore}}</span
+      ><span class="text-muted">{{amonthago}}&nbsp;-&nbsp;{{thisday}}</span>
+    </div>
+    <div class="contrib-column table-column">
+      <span class="text-muted">最近一周提交</span
+      ><span class="contrib-number">{{weekdatacore}}</span
+      ><span class="text-muted">{{aweekago}}&nbsp;-&nbsp;{{thisday}}</span>
+    </div>
+  </div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-gitcalendar/gitcalendar/css/gitcalendar.css" media="defer" onload="this.media='all'">
+<script defer src="https://rmt.dogedoge.com/fetch/~/source/jsdelivr/npm/jquery@latest/dist/jquery.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script defer data-pjax src="/js/gitcalendar.js"></script>
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">Ln</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://weilining.cf/39.html">https://weilining.cf/39.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://weilining.cf" target="_blank">Ln's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/weilining/img/menhera/19.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/weilining/img@main/img/20201122213021.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img@main/img/20201122213021.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/weilining/img@main/img/434235F3-7A93-4EA4-A7B6-4F6D977F1A89.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img@main/img/434235F3-7A93-4EA4-A7B6-4F6D977F1A89.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/weilining/img@main/img/bitcoin.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img@main/img/bitcoin.png" alt="比特币"/></a><div class="post-qr-code-desc">比特币</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/bGp8TUSc4Se8nlH5/38.html"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/12.png" onerror="onerror=null;src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">hexo butterfly 实现《黑客帝国》特效</div></div></a></div><div class="next-post pull-right"><a href="/bGp8TUSc4Se8nlH5/40.html"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/29.png" onerror="onerror=null;src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hexo ERROR Deployer not found: git 解决办法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/bGp8TUSc4Se8nlH5/10.html" title="为什么 vim 使用 hjkl 键作为方向键"><img class="cover" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-26</div><div class="title">为什么 vim 使用 hjkl 键作为方向键</div></div></a></div><div><a href="/bGp8TUSc4Se8nlH5/11.html" title="hexo new自动打开md编辑器"><img class="cover" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/5.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-28</div><div class="title">hexo new自动打开md编辑器</div></div></a></div><div><a href="/bGp8TUSc4Se8nlH5/12.html" title="git cloen https github.com:443 解决办法"><img class="cover" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-03</div><div class="title">git cloen https github.com:443 解决办法</div></div></a></div><div><a href="/bGp8TUSc4Se8nlH5/13.html" title="Visual Studio Code 文件比较"><img class="cover" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/10.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-06</div><div class="title">Visual Studio Code 文件比较</div></div></a></div><div><a href="/bGp8TUSc4Se8nlH5/14.html" title="freenom 的域名建站可行性分析"><img class="cover" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/10.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-18</div><div class="title">freenom 的域名建站可行性分析</div></div></a></div><div><a href="/bGp8TUSc4Se8nlH5/15.html" title="Hexo 最简单的更换 live2d 模型"><img class="cover" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-18</div><div class="title">Hexo 最简单的更换 live2d 模型</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img@main/img/20201120235415.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Ln</div><div class="author-info__description">算法、技术</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/bGp8TUSc4Se8nlH5/archives/"><div class="headline">文章</div><div class="length-num">92</div></a></div><div class="card-info-data-item is-center"><a href="/bGp8TUSc4Se8nlH5/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/bGp8TUSc4Se8nlH5/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/weilining" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:157668997@qq.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/bGp8TUSc4Se8nlH5/atom.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=157668997&amp;site=qq&amp;menu=yes" rel="external nofollow noreferrer" target="_blank" title="RSS"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://t.me/TheTimelimit" rel="external nofollow noreferrer" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">记录点点滴滴</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E7%BD%91"><span class="toc-text">官网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E7%AD%94"><span class="toc-text">解答</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C"><span class="toc-text">效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E7%BD%91-1"><span class="toc-text">官网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E5%BC%80pjax"><span class="toc-text">未开pjax</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80pjax"><span class="toc-text">开pjax</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C-1"><span class="toc-text">效果</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/92.html" title="谷歌网页性能测试"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/15.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="谷歌网页性能测试"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/92.html" title="谷歌网页性能测试">谷歌网页性能测试</a><time datetime="2021-01-17T04:43:43.000Z" title="发表于 2021-01-17 12:43:43">2021-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/91.html" title="Visual Studio Code 终端分屏独立操作"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/13.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="Visual Studio Code 终端分屏独立操作"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/91.html" title="Visual Studio Code 终端分屏独立操作">Visual Studio Code 终端分屏独立操作</a><time datetime="2021-01-15T09:14:38.000Z" title="发表于 2021-01-15 17:14:38">2021-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/90.html" title="Hexo 实现随机文章跳转"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/3.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="Hexo 实现随机文章跳转"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/90.html" title="Hexo 实现随机文章跳转">Hexo 实现随机文章跳转</a><time datetime="2021-01-14T15:54:39.000Z" title="发表于 2021-01-14 23:54:39">2021-01-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/89.html" title="浅谈依赖，轻装上阵"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/13.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="浅谈依赖，轻装上阵"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/89.html" title="浅谈依赖，轻装上阵">浅谈依赖，轻装上阵</a><time datetime="2021-01-14T08:23:55.000Z" title="发表于 2021-01-14 16:23:55">2021-01-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/88.html" title="最优雅的安装 nodejs"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/4.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="最优雅的安装 nodejs"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/88.html" title="最优雅的安装 nodejs">最优雅的安装 nodejs</a><time datetime="2021-01-14T08:01:43.000Z" title="发表于 2021-01-14 16:01:43">2021-01-14</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/weilining/img/menhera/19.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Ln</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@latest/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@latest/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@latest/source/js/search/local-search.min.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    let initData = {
+      el: '#twikoo-wrap',
+      envId: 'blog-6ga4m4gx6ca8391e',
+      region: ''
+    }
+
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    twikoo.init(initData)
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'blog-6ga4m4gx6ca8391e',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+    content = content.replace(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png|webp)/g, '') // remove image link
+    content = content.replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi, '') // remove url
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'blog-6ga4m4gx6ca8391e',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(res), 10/(60*24))
+        generateHtml(res)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url + '#' + array[i].id}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url + '#' + array[i].id}'>${changeContent(array[i].commentText)}</a>
+        <div class='name'><span>${array[i].nick}</span><time> / ${btf.diffDate(array[i].created, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script async>eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('7 0=6.9("8");5.2(0,"1",{4:3(){g.f.i="h://e.b.a/"}}),d.c(0);',19,19,'x|id|defineProperty|function|get|Object|document|var|div|createElement|com|baidu|log|console|www|location|window|https|href'.split('|'),0,{}))</script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 网站已更新最新版本 👉</label> <a href="javascript:void(0)" rel="external nofollow noreferrer" onclick="location.reload()">点击刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"点击刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><div><canvas id="snow" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;pointer-events:none"></canvas></div><script>var notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script><script async type="text/javascript" src="https://cdn.jsdelivr.net/gh/Candinya/Kratos-Rebirth@latest/source/js/snow.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config_change',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>

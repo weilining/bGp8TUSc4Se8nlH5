@@ -1,0 +1,138 @@
+#article-container.post-content h1:before,
+h2:before,
+h3:before,
+h4:before,
+h5:before,
+h6:before {
+  -webkit-animation: avatar_turn_around 1s linear infinite;
+  -moz-animation: avatar_turn_around 1s linear infinite;
+  -o-animation: avatar_turn_around 1s linear infinite;
+  -ms-animation: avatar_turn_around 1s linear infinite;
+  animation: avatar_turn_around 1s linear infinite;
+}
+/* 首页文章侧边卡片圆角 */
+.layout > div:first-child:not(.recent-posts),
+#recent-posts > .recent-post-item,
+#aside_content .card-widget {
+  border-radius: 25px 25px 25px 25px;
+}
+/* 右下角的按钮变成圆角 */
+#rightside > div > a,
+#rightside > div > button {
+  border-radius: 10px;
+}
+/* 给图片加圆角 */
+img {
+  border-radius: 9px;
+}
+/* 悬浮鼠标显示颜色边框 */
+img:hover {
+  box-shadow: 0 0px 10px 5px #22ec2c;
+}
+#article-container figure.highlight:hover {
+  box-shadow: 0 0px 10px 5px #deec22;
+}
+/* 侧边栏 */
+.layout > div:first-child:not(.recent-posts):hover,
+#recent-posts > .recent-post-item:hover,
+#aside_content .card-widget:hover {
+  -webkit-box-shadow: 0 4px 12px 12px rgba(245, 20, 215, 0.3);
+  /* box-shadow: 0 4px 12px 12px rgba(245, 20, 215, 0.3); */
+  box-shadow: 0 0px 10px 5px #06d8fdc7 inset, 0 0px 10px 5px #06d8fdc7;
+  background-color: transparent;
+}
+/* 头像撒花 */
+.card-info-avatar.is-center:hover {
+  background: url(https://cdn.jsdelivr.net/gh/GlumeL/Static@master/handsome/7.3.1/assets/img/snow.gif);
+  background-size: cover;
+}
+/*鼠标样式开始*/
+body {
+  cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/default.cur),
+    default;
+}
+
+a,
+img {
+  cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/pointer.cur),
+    default;
+}
+/* 关于我爱心动态 */
+.fa-fw.fas.fa-heart {
+  color: #ff0000;
+  display: inline-block;
+  margin: 0 5px;
+  animation: announ_animation 0.8s linear infinite;
+}
+/*移动端优化：去除归档、标签、最新文章、公告、评论、只保留网站统计*/
+@media screen and (max-width: 900px) {
+  .card-info,
+  .card-announcement,
+  .card-recent-post,
+  #card-newest-comments,
+  .card-categories,
+  .card-tags,
+  .card-archives,
+  .item-headline {
+    display: none;
+  }
+}
+/*彩虹文字*/
+#page-header #site-title,
+#page-header #site-subtitle,
+#post-info .post-title {
+  padding-top: 3px;
+  background-image: linear-gradient(
+    to left,
+    orangered,
+    orange,
+    gold,
+    lightgreen,
+    cyan,
+    dodgerblue,
+    mediumpurple,
+    hotpink,
+    orangered
+  );
+  background-size: 110vw;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-animation: rainbowan 60s linear infinite;
+  animation: rainbowan 60s linear infinite;
+}
+@-webkit-keyframes rainbowan {
+  to {
+    background-position: -2000vw;
+  }
+}
+@keyframes rainbowan {
+  to {
+    background-position: -2000vw;
+  }
+}
+/* markdown语法 ``加粗的字体 */
+@font-face {
+  font-family: MyFont;
+  src: url(https://cdn.jsdelivr.net/gh/zjwo/CDN@master/font/JetBrainsMono-Medium.woff2);
+  font-display: swap;
+}
+/* markdown语法 ``加粗 */
+#article-container code {
+  font-family: MyFont !important;
+}
+
+/* 字体修改 */
+@font-face {
+  font-family: "arzhu"; /* 字体名自定义即可 */
+  src: url("https://cdn.jsdelivr.net/gh/zjwo/CDN@master/font/arzhu.ttf"); /* 字体文件路径 */
+  font-display: swap;
+}
+body,
+td,
+th,
+h1#site-title,
+span#subtitle,
+a#site-name {
+  font-family: arzhu !important;
+}

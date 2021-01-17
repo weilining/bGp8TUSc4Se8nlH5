@@ -1,0 +1,18 @@
+User-agent: Googlebot
+Disallow: /page/
+Disallow: /page/*.html
+User-agent: *
+Disallow: /page/
+Disallow: /page/*.html
+#Disallow politics
+Disallow: /live2dw/
+Disallow: /assets/
+Disallow: /lib/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendors/
+Disallow: /404.html
+
+Sitemap: https://weilining.cf/sitemap.xml
+Sitemap: https://weilining.cf/baidusitemap.xml

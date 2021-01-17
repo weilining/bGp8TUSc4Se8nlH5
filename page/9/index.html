@@ -1,0 +1,481 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ln's Blog - 有朋自远方来，不亦乐乎</title><meta name="author" content="Ln"><meta name="copyright" content="Ln"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="算法、技术">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ln&#39;s Blog">
+<meta property="og:url" content="https://weilining.cf/page/9/index.html">
+<meta property="og:site_name" content="Ln&#39;s Blog">
+<meta property="og:description" content="算法、技术">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/weilining/img@main/img/20201120235415.png">
+<meta property="article:author" content="Ln">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/weilining/img@main/img/20201120235415.png"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/weilining/img@main/img/favicon-16x16-next.png"><link rel="canonical" href="https://weilining.cf/page/9/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="baidu-site-verification" content="code-wFDrn4lvkD"/><link rel="stylesheet" href="/bGp8TUSc4Se8nlH5/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/bGp8TUSc4Se8nlH5/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":30,"position":"top","messagePrev":"本文修改于","messageNext":"天前，如果本文有一定的时效性，那么本文可能已经失效~"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ln","link":"链接: ","source":"来源: Ln's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+const saveToLocal = {
+  // ttl 單位是 天
+  set: function setWithExpiry(key, value, ttl) {
+    if (ttl === 0) return
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-01-17 17:31:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}const fontSizeVal = saveToLocal.get('global-font-size')
+if (fontSizeVal !== undefined) {
+  document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+}})()</script><style>#page-header {background-color: transparent;}</style><style>.article-title:hover, .post-title:hover,#site-title:hover { animation: shake-it 0.5s reverse infinite cubic-bezier(0.68, -0.55, 0.27, 1.55); } @keyframes shake-it { 0% { text-shadow: 0 0 rgba(0, 255, 255, 0.5), 0 0 rgba(255, 0, 0, 0.5); } 25% { text-shadow: -2px 0 rgba(0, 255, 255, 0.5), 2px 0 rgba(255, 0, 0, 0.5); } 50% { text-shadow: -5px 0 rgba(0, 255, 255, 0.5), 3px 0 rgba(255, 0, 0, 0.5); } 100% { text-shadow: 3px 0 rgba(0, 255, 255, 0.5), 5px 0 rgba(255, 0, 0, 0.5); } }</style><style>#page-header #page-site-info .post-edit-link{display:none}#page-header #page-site-info :hover .post-edit-link{display:inline-block}#post-info .post-edit-link{display:none}#post-info :hover .post-edit-link{display:inline-block}#article-container .headerlink::before{content:"\f0c1";font-family:"Font Awesome 5 Free";font-weight:900}#article-container .headerlink{float:right;display:none}#article-container :hover .headerlink{display:inline-block}</style><style>#article-container.post-content h1:before, h2:before, h3:before, h4:before, h5:before, h6:before, hr:before { -webkit-animation: avatar_turn_around 1s linear infinite; -moz-animation: avatar_turn_around 1s linear infinite; -o-animation: avatar_turn_around 1s linear infinite; -ms-animation: avatar_turn_around 1s linear infinite; animation: avatar_turn_around 1s linear infinite; }</style><style type="text/css">.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/bGp8TUSc4Se8nlH5/atom.xml" title="Ln's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img@main/img/20201120235415.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/bGp8TUSc4Se8nlH5/archives/"><div class="headline">文章</div><div class="length-num">92</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bGp8TUSc4Se8nlH5/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/bGp8TUSc4Se8nlH5/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/echarts/"><i class="fa-fw fas fa-chart-bar"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-flask fa-fw"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/timeline/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/test/"><i class="fa-fw fas fa-vials"></i><span> 测试点</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-fw fa fa-list-alt"></i><span> 单页</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/snow/"><i class="fa-fw fas fa-snowflake"></i><span> 下雪</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/baidu/"><i class="fa-fw fab fa-searchengin"></i><span> 帮搜</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura1/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨1</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura2/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨2</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/digitalrain/"><i class="fa-fw fas fa-cloud-rain"></i><span> 数字雨</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/snow1/"><i class="fa-fw fas fa-snowflake"></i><span> 下雪1</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/klkp/"><i class="fa-fw fas fa-snowflake"></i><span> 恐龙快跑</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/random/"><i class="fa-fw fas fa-random"></i><span> 随机文章</span></a></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/weilining/img@main/img/a1reu-0pdg1.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/bGp8TUSc4Se8nlH5/">Ln's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/echarts/"><i class="fa-fw fas fa-chart-bar"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-flask fa-fw"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/timeline/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/test/"><i class="fa-fw fas fa-vials"></i><span> 测试点</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-fw fa fa-list-alt"></i><span> 单页</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/snow/"><i class="fa-fw fas fa-snowflake"></i><span> 下雪</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/baidu/"><i class="fa-fw fab fa-searchengin"></i><span> 帮搜</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura1/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨1</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/sakura2/"><i class="fa-fw fas fa-cloud-showers-heavy"></i><span> 樱花雨2</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/digitalrain/"><i class="fa-fw fas fa-cloud-rain"></i><span> 数字雨</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/snow1/"><i class="fa-fw fas fa-snowflake"></i><span> 下雪1</span></a></li><li><a class="site-page" href="/bGp8TUSc4Se8nlH5/klkp/"><i class="fa-fw fas fa-snowflake"></i><span> 恐龙快跑</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/random/"><i class="fa-fw fas fa-random"></i><span> 随机文章</span></a></div><div class="menus_item"><a class="site-page" href="/bGp8TUSc4Se8nlH5/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Ln's Blog</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/weilining" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:157668997@qq.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/bGp8TUSc4Se8nlH5/atom.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=157668997&amp;site=qq&amp;menu=yes" rel="external nofollow noreferrer" target="_blank" title="RSS"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://t.me/TheTimelimit" rel="external nofollow noreferrer" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/bGp8TUSc4Se8nlH5/12.html" title="git cloen https github.com:443 解决办法">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/9.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="git cloen https github.com:443 解决办法"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/12.html" title="git cloen https github.com:443 解决办法">git cloen https github.com:443 解决办法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-03T07:53:07.000Z" title="发表于 2020-11-03 15:53:07">2020-11-03</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-11-03T07:53:07.000Z" title="更新于 2020-11-03 15:53:07">2020-11-03</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a></span></div><div class="content">连接GitHub1ping github.com
+
+
+不通可以在hosts里加
+113.250.177.223 github.com
+关闭代理12git config --global --unset http.proxygit config --global --unset https.proxy
+关代理软件并重启电脑
+HTTPS1git clone https:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexo.git
+SSH测试 SSH 连接1ssh -T git@github.com
+下载远程仓库1git clone git@github.com:hexojs&#x2F;hexo.git
+
+
+</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/bGp8TUSc4Se8nlH5/11.html" title="hexo new自动打开md编辑器">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/5.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="hexo new自动打开md编辑器"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/11.html" title="hexo new自动打开md编辑器">hexo new自动打开md编辑器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-28T10:16:26.000Z" title="发表于 2020-10-28 18:16:26">2020-10-28</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-28T10:16:26.000Z" title="更新于 2020-10-28 18:16:26">2020-10-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a></span></div><div class="content">[TOC]
+在Hexo中新建一篇博文非常简单，只需要在命令行中键入以下命令然后回车即可：
+
+
+1hexo new &quot;The title of your blog&quot;
+然后hexo就会在hexo的根目录下的source目录下的_post目录下自动创建相对应的md文件。然后我们只需要找到刚刚生成的文件进行编辑就可以了。
+但是一旦文章比较多的情况下，我们就需要在成堆的md文件中找刚刚创建的博文，这就比较麻烦。
+好在hexo的github上有类似的issue，然后hexo作者**tommy351**也可给出了解决方法：
+
+You can try to listen to the new event. For example:
+
+1234567891011var exec &#x3D; require(&#39;child_process&#39;).exec;hexo.on(&#39;new&#39;, function(path)&#123;  exec(&#39;vi&#39;, [path]);&#125;);&#x2F;&#x2F; Hexo 3hexo.on(&#3 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/bGp8TUSc4Se8nlH5/10.html" title="为什么 vim 使用 hjkl 键作为方向键">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/8.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="为什么 vim 使用 hjkl 键作为方向键"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/10.html" title="为什么 vim 使用 hjkl 键作为方向键">为什么 vim 使用 hjkl 键作为方向键</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-26T06:11:11.000Z" title="发表于 2020-10-26 14:11:11">2020-10-26</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-26T06:11:11.000Z" title="更新于 2020-10-26 14:11:11">2020-10-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a></span></div><div class="content">
+
+初次接触 vi/vim 编辑器的人可能都会有个疑问：用 hjkl 键（作为方向键）控制光标移动是什么鬼？
+关于这个问题，以前网络上有一种说法，手指放在键盘上输入时，hjkl 键比方向键距离手指更近，输入效率自然就会更高。这听起来似乎很有道理，然而我最近查了一点资料，却发现真实情况有点让人啼笑皆非。
+vim 是从 vi 发展出来的，使用了一样的键位设置，所以一切问题都要追述到 vi 编辑器的发明者 Bill Joy 身上。
+在那个时代自然是没有我们现在这么五花八门的强大计算机，Bill Joy 是在一台 ADM-3A 终端机上开发的 vi 编辑器，它就长下面这样。
+
+我们重点关注一下它的键盘。
+
+嗯，这下知道为什么要使用 hjkl 键作为方向键了吗？因为它们上面标有方向箭头啊，不用这几个键用啥？
+另外，vim 饱受诟病的使用 Esc 键切换模式的操作（模式切换属高频动作，但现代键盘上 Esc 键太远了，按起来很不方便）也是因为这个键盘布局导致的，看看那时候的 Esc 键离手指多近啊……
+最后，从上面的键盘布局图中我们还能发现一个有趣的事情，看看右上角的 HOME 键，发现了什么吗？没 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/bGp8TUSc4Se8nlH5/9.html" title="1秒钟启动 GitHub Action">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/5.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="1秒钟启动 GitHub Action"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/9.html" title="1秒钟启动 GitHub Action">1秒钟启动 GitHub Action</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-25T15:23:37.000Z" title="发表于 2020-10-25 23:23:37">2020-10-25</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-12-29T08:23:37.000Z" title="更新于 2020-12-29 16:23:37">2020-12-29</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/">百度收录</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/GitHub-Action/">GitHub Action</a></span></div><div class="content">前提申请GitHub Token申请地址： Personal access tokens，权限不懂配可以全打勾
+配置好deploy参考：最方便的 Hexo 部署
+1hexo cl &amp;&amp; hexo g &amp;&amp; hexo d
+https://github.com/weilining/weilining.github.io
+测试以上代码看是否能提交到yourname.github.io
+GitHub创建博客源码仓库比如我的博客空仓库blog，设置私有
+地址：https://github.com/weilining/blog
+自己测试能否访问
+
+
+开始进入博客根目录进入到你的博客源文件根目录
+123cd hexolsscaffolds  source  themes  _config.yml  package.json
+运行代码在博客源文件根目录运行下面代码，自动创建.github/workflows/HexoWorkFlows.yml
+1mkdir -p .github&#x2F;workflows &amp;&amp; wget https:&#x2F;&#x ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/bGp8TUSc4Se8nlH5/8.html" title="最简单的使用 jsdelivr 加速网站">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/15.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="最简单的使用 jsdelivr 加速网站"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/8.html" title="最简单的使用 jsdelivr 加速网站">最简单的使用 jsdelivr 加速网站</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-23T15:04:05.000Z" title="发表于 2020-10-23 23:04:05">2020-10-23</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-23T15:04:05.000Z" title="更新于 2020-10-23 23:04:05">2020-10-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/jsdelivr/">jsdelivr</a></span></div><div class="content">原理在神州大地上，因为众所周知的原因，github访问的速度很慢，甚至有时候会完全中断，让我们没法愉快的利用github提供的优质仓储。好在有了jsdelivr，免费为github所有的公开仓库做CDN，连国内都可以极速访问！使用 jsDelivr 为 Hexo 博客提供高效免费的CDN加速，节省服务器流量且减少宽带占用。不过jsdelivr还有个小小的问题，就是不能及时刷新缓存，github仓库更新后，缓存会在24小时内刷新。一般的CDN会提供强制刷新/回源(purge)机制，然而为了防止滥用，jsdelivr并没有开放此API，据说需要写邮件给jsdelivr说明原因才能开通，让一众白嫖怪们不禁抚掌兴叹。还好，还有个窗户可以爬，可以达到类似强制刷新的效果，就是github仓库更新后，创建一个新的release，然后用https://cdn.jsdelivr.net/gh/user/repo@tag/path/to/resource的方法请求资源，其中tag就是release的名字。
+http://ping.chinaz.com/cdn.jsdelivr.net
+感受下jsdeliv ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/bGp8TUSc4Se8nlH5/7.html" title="最简单的 LaTeX 入门">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/3.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="最简单的 LaTeX 入门"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/7.html" title="最简单的 LaTeX 入门">最简单的 LaTeX 入门</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-21T08:36:23.000Z" title="发表于 2020-10-21 16:36:23">2020-10-21</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-21T08:36:23.000Z" title="更新于 2020-10-21 16:36:23">2020-10-21</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/">百度收录</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/LaTex/">LaTex</a></span></div><div class="content">mac下使用Typora添加数学公式command+option+B
+下标1R_&#123;ij&#125;
+长分式1\frac&#123;X&#125;&#123;Y&#125;
+好用！
+练手$$R_i=\sum_{i}^{n}{\frac{X_i}{x}}\ln(\frac{\frac{X_i}{X}}{\frac{Y_i}{Y}})$$
+$$R_{ai}=\sum_{i}{\frac{X_{ji}}{X_j}}\ln(\frac{\frac{X_ji}{Xj}}{\frac{P_ji}{P_j}})$$
+$$R_a=\sum_{j}{\frac{X_j}{x}}R_{ai}$$
+$$R_b=\sum_{j}{\frac{Xj}{X}}\ln(\frac{\frac{X_j}{X}}{\frac{P_j}{P}})$$
+$$R=R_a+{R_b}$$
+$$Z_a=\frac{R_a}{R}$$
+$$Z_b=\frac{R_b}{R}$$
+$$Z_j=\frac{X_jR_{ai}}{XR}$$
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/bGp8TUSc4Se8nlH5/6.html" title="解决 GitHub Pages 出现独角兽">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/7.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="解决 GitHub Pages 出现独角兽"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/6.html" title="解决 GitHub Pages 出现独角兽">解决 GitHub Pages 出现独角兽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-20T18:36:23.000Z" title="发表于 2020-10-21 02:36:23">2020-10-21</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-20T18:36:23.000Z" title="更新于 2020-10-21 02:36:23">2020-10-21</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a></span></div><div class="content">
+
+
+We’re having a really bad day.
+The Unicorns have taken over. We’re doing our best to get them under control and get GitHub back up and running.
+Contact Support — GitHub Status — @githubstatus
+ 
+[TOC]
+裸yourname.github.io只能等GitHub Pages恢复正常
+域名绑定GitHub Pages当GitHub Pages出现独角兽，站点文件可以托管到vercel、netlify，域名可以解析到托管平台。
+部署到vercel不支持QQ邮箱、163邮箱、hotmail邮箱，换句话说，请使用outlook邮箱，推荐谷歌邮箱。
+使用谷歌邮箱注册登陆gitlabhttps://gitlab.com/users/sign_in
+使用gitlab注册登陆vercelhttps://vercel.com
+导入github的repovercel的Domains绑定域名域名解析1A记录解析 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/bGp8TUSc4Se8nlH5/5.html" title="彻底解决 hexo init 卡慢问题">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/2.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="彻底解决 hexo init 卡慢问题"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/5.html" title="彻底解决 hexo init 卡慢问题">彻底解决 hexo init 卡慢问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-20T17:46:48.000Z" title="发表于 2020-10-21 01:46:48">2020-10-21</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-01-09T17:46:48.000Z" title="更新于 2021-01-10 01:46:48">2021-01-10</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a></span></div><div class="content">hexo init blog卡住？Google谷姐没好办法，分享下自己办法（其实是在翻译源码换gitee源）
+123456789npm config set registry http:&#x2F;&#x2F;registry.npm.taobao.orgnpm install hexo-cli@latest -ggit clone --depth 1 https:&#x2F;&#x2F;gitee.com&#x2F;weilining&#x2F;hexo-starter.git blogcd blog## git submodule init## git submodule updategit clone --depth 1 https:&#x2F;&#x2F;gitee.com&#x2F;weilining&#x2F;hexo-theme-landscape.git themes&#x2F;landscapenpm ihexo server
+
+
+源码GitHub
+1hexo init blog
+解析12345git clone --depth 1 https:&#x2F;&#x2F ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/bGp8TUSc4Se8nlH5/4.html" title="最简单的 Hexo npm 版本升级">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/17.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="最简单的 Hexo npm 版本升级"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/4.html" title="最简单的 Hexo npm 版本升级">最简单的 Hexo npm 版本升级</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-20T11:55:38.000Z" title="发表于 2020-10-20 19:55:38">2020-10-20</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-20T11:55:38.000Z" title="更新于 2020-10-20 19:55:38">2020-10-20</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a></span></div><div class="content">[TOC]
+GitHub
+安装npm-check-updates1sudo npm install -g npm-check-updates
+
+
+更新 Hexo1sudo npm install hexo-cli -g
+更新所有插件检测版本1ncu
+更新package.json1ncu -u
+安装package.json新版本1npm install
+脚本vi update.sh
+123ncuncu -unpm install
+bash update.sh
+</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/bGp8TUSc4Se8nlH5/3.html" title="获取 GitHub Personal Access Token 方法">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/15.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="获取 GitHub Personal Access Token 方法"></a></div><div class="recent-post-info"><a class="article-title" href="/bGp8TUSc4Se8nlH5/3.html" title="获取 GitHub Personal Access Token 方法">获取 GitHub Personal Access Token 方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-20T09:55:32.000Z" title="发表于 2020-10-20 17:55:32">2020-10-20</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-20T09:55:32.000Z" title="更新于 2020-10-20 17:55:32">2020-10-20</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/bGp8TUSc4Se8nlH5/categories/default/">default</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/default/">default</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/bGp8TUSc4Se8nlH5/tags/%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/">百度收录</a></span></div><div class="content">Github账户中添加Token:
+
+Github任意页面中，依次点击：右上角头像 -&gt; Settings -&gt; Developer Settings -&gt; Personal access tokens
+点击Generate new token
+Notes中随便输入个名字，Select scopes中，确保repo及其子项目全部选中，然后点击Generate Token
+把产生的token，一个40位的16进制字符串记住。重要：此token只显示这一次，如果没记住只能删除重建
+
+
+
+要将博客部署到 GitHub Pages 上， push 操作自然是免不了的，这就要求要有相应的仓库权限。直接用帐号密码无疑是十分不安全的，所以这里通过 GitHub Personal Access Token 来实现。
+点击 GitHub 用户设置页面 最下方的 Developer setting ，然后选择 Personal access tokens 来生成一个 token，由于我们只需要能够对普通仓库 push 就行了，所以把 repo 部分勾上即可。
+参考创建个人访问令牌
+</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/bGp8TUSc4Se8nlH5/page/8/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/bGp8TUSc4Se8nlH5/">1</a><span class="space">&hellip;</span><a class="page-number" href="/bGp8TUSc4Se8nlH5/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/bGp8TUSc4Se8nlH5/page/10/">10</a><a class="extend next" rel="next" href="/bGp8TUSc4Se8nlH5/page/10/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img@main/img/20201120235415.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Ln</div><div class="author-info__description">算法、技术</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/bGp8TUSc4Se8nlH5/archives/"><div class="headline">文章</div><div class="length-num">92</div></a></div><div class="card-info-data-item is-center"><a href="/bGp8TUSc4Se8nlH5/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/bGp8TUSc4Se8nlH5/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/weilining" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:157668997@qq.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/bGp8TUSc4Se8nlH5/atom.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=157668997&amp;site=qq&amp;menu=yes" rel="external nofollow noreferrer" target="_blank" title="RSS"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://t.me/TheTimelimit" rel="external nofollow noreferrer" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">记录点点滴滴</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/92.html" title="谷歌网页性能测试"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/15.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="谷歌网页性能测试"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/92.html" title="谷歌网页性能测试">谷歌网页性能测试</a><time datetime="2021-01-17T04:43:43.000Z" title="发表于 2021-01-17 12:43:43">2021-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/91.html" title="Visual Studio Code 终端分屏独立操作"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/13.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="Visual Studio Code 终端分屏独立操作"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/91.html" title="Visual Studio Code 终端分屏独立操作">Visual Studio Code 终端分屏独立操作</a><time datetime="2021-01-15T09:14:38.000Z" title="发表于 2021-01-15 17:14:38">2021-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/90.html" title="Hexo 实现随机文章跳转"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/3.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="Hexo 实现随机文章跳转"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/90.html" title="Hexo 实现随机文章跳转">Hexo 实现随机文章跳转</a><time datetime="2021-01-14T15:54:39.000Z" title="发表于 2021-01-14 23:54:39">2021-01-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/89.html" title="浅谈依赖，轻装上阵"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/13.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="浅谈依赖，轻装上阵"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/89.html" title="浅谈依赖，轻装上阵">浅谈依赖，轻装上阵</a><time datetime="2021-01-14T08:23:55.000Z" title="发表于 2021-01-14 16:23:55">2021-01-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/bGp8TUSc4Se8nlH5/88.html" title="最优雅的安装 nodejs"><img data-lazy-src="https://cdn.jsdelivr.net/gh/weilining/img/menhera/4.png" onerror="this.onerror=null;this.src='/bGp8TUSc4Se8nlH5/img/404.jpg'" alt="最优雅的安装 nodejs"/></a><div class="content"><a class="title" href="/bGp8TUSc4Se8nlH5/88.html" title="最优雅的安装 nodejs">最优雅的安装 nodejs</a><time datetime="2021-01-14T08:01:43.000Z" title="发表于 2021-01-14 16:01:43">2021-01-14</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-bolt"></i><span>最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/bGp8TUSc4Se8nlH5/categories/default/"><span class="card-category-list-name">default</span><span class="card-category-list-count">92</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/bGp8TUSc4Se8nlH5/tags/default/" style="font-size: 1.5em; color: rgb(190, 20, 197)">default</a><a href="/bGp8TUSc4Se8nlH5/tags/%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/" style="font-size: 1.3em; color: rgb(67, 184, 146)">百度收录</a><a href="/bGp8TUSc4Se8nlH5/tags/LaTex/" style="font-size: 1.1em; color: rgb(26, 168, 119)">LaTex</a><a href="/bGp8TUSc4Se8nlH5/tags/jsdelivr/" style="font-size: 1.1em; color: rgb(53, 137, 186)">jsdelivr</a><a href="/bGp8TUSc4Se8nlH5/tags/GitHub-Action/" style="font-size: 1.1em; color: rgb(133, 117, 182)">GitHub Action</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/bGp8TUSc4Se8nlH5/archives/2021/"><span class="card-archive-list-date">2021</span><span class="card-archive-list-count">30</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/bGp8TUSc4Se8nlH5/archives/2020/"><span class="card-archive-list-date">2020</span><span class="card-archive-list-count">62</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">92</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2020-11-11T07:00:00.000Z"></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">30.9k</div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-01-17T09:31:33.816Z"></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/weilining/img@main/img/a1reu-0pdg1.webp')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Ln</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@latest/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@latest/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@latest/source/js/search/local-search.min.js"></script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    var typed = new Typed("#subtitle", {
+      strings: "时不我待,Time does not wait".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = '时不我待'
+  }
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+    content = content.replace(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png|webp)/g, '') // remove image link
+    content = content.replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi, '') // remove url
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'blog-6ga4m4gx6ca8391e',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(res), 10/(60*24))
+        generateHtml(res)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url + '#' + array[i].id}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url + '#' + array[i].id}'>${changeContent(array[i].commentText)}</a>
+        <div class='name'><span>${array[i].nick}</span><time> / ${btf.diffDate(array[i].created, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script async>eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('7 0=6.9("8");5.2(0,"1",{4:3(){g.f.i="h://e.b.a/"}}),d.c(0);',19,19,'x|id|defineProperty|function|get|Object|document|var|div|createElement|com|baidu|log|console|www|location|window|https|href'.split('|'),0,{}))</script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 网站已更新最新版本 👉</label> <a href="javascript:void(0)" rel="external nofollow noreferrer" onclick="location.reload()">点击刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"点击刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><div><canvas id="snow" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;pointer-events:none"></canvas></div><script>var notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script><script async type="text/javascript" src="https://cdn.jsdelivr.net/gh/Candinya/Kratos-Rebirth@latest/source/js/snow.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config_change',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>
